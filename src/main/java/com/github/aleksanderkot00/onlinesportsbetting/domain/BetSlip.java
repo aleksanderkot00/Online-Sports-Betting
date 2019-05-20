@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class BetSlip {
     private long id;
-    private Set<FootballBet> bets;
+    private Set<Bet> bets;
     private BigDecimal stake;
     private BigDecimal totalOdds;
 }
