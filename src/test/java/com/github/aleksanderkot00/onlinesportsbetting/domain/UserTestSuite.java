@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class UserTestSuite {
     private UserRepository userRepository;
 
     @Test
+    @Transactional(rollbackOn = {Exception.class})
     public void SaveAndFindAll() {
         //Given
         int initialNumberOfUsers = userRepository.findAll().size();
@@ -45,13 +47,10 @@ public class UserTestSuite {
         assertEquals(initialNumberOfUsers + 2, numberOfUsers);
         assertTrue(users.contains(user1));
         assertTrue(users.contains(user2));
-
-        //CleanUp
-        userRepository.deleteById(user1.getUserId());
-        userRepository.deleteById(user2.getUserId());
     }
 
     @Test
+    @Transactional(rollbackOn = {Exception.class})
     public void testFindById() {
         //Given
         User user = new User();
@@ -66,12 +65,10 @@ public class UserTestSuite {
 
         //Then
         assertEquals(user, foundByIdUser);
-
-        //CleanUp
-        userRepository.deleteById(user.getUserId());
     }
 
     @Test
+    @Transactional(rollbackOn = {Exception.class})
     public void testDelete() {
         //Given
         int initialNumberOfUsers = userRepository.findAll().size();
@@ -93,6 +90,7 @@ public class UserTestSuite {
     }
 
     @Test
+    @Transactional(rollbackOn = {Exception.class})
     public void testDeleteById() {
         //Given
         int initialNumberOfUsers = userRepository.findAll().size();
