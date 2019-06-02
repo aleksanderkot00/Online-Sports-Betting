@@ -31,6 +31,7 @@ public class UserTestSuite {
         user1.setLastName("Test Lastname1");
         user1.setEmail("email1@test.com");
         user1.setBalance(new BigDecimal("1231.11"));
+
         User user2 = new User();
         user2.setName("Test Name2");
         user2.setLastName("Test Lastname2");
@@ -61,10 +62,10 @@ public class UserTestSuite {
         userRepository.save(user);
 
         //When
-        User foundByIdUser = userRepository.findById(user.getUserId()).orElseThrow(UserNotFoundException::new);
+        User foundUser = userRepository.findById(user.getUserId()).orElseThrow(UserNotFoundException::new);
 
         //Then
-        assertEquals(user, foundByIdUser);
+        assertEquals(user, foundUser);
     }
 
     @Test
