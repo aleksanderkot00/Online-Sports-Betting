@@ -5,26 +5,30 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "USERS")
 public class User {
 
+    @NotNull
     @Id
     @GeneratedValue
-    @Column(name = "USER_ID")
     private long userId;
 
     @NotNull
-    @Size(min = 2, max = 12)
+    @Size(min = 2, max = 15)
     private String name;
 
     @NotNull
-    @Size(min = 2, max = 12)
+    @Size(min = 2, max = 15)
     private String lastName;
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
+
+    @Column(precision = 9, scale = 2)
     private BigDecimal balance;
 
     public long getUserId() {
@@ -65,5 +69,22 @@ public class User {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(balance, user.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, name, lastName, email, balance);
     }
 }
