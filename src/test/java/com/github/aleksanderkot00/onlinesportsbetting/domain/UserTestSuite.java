@@ -1,5 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
+import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +62,7 @@ public class UserTestSuite {
         userRepository.save(user);
 
         //When
-        User foundByIdUser = userRepository.findById(user.getUserId()).get();
+        User foundByIdUser = userRepository.findById(user.getUserId()).orElseThrow(UserNotFoundException::new);
 
         //Then
         assertEquals(user, foundByIdUser);
