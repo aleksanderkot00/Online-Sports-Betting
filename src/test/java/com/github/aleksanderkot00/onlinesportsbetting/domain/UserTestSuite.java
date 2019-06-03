@@ -23,7 +23,7 @@ public class UserTestSuite {
 
     @Test
     @Transactional(rollbackOn = {Exception.class})
-    public void SaveAndFindAll() {
+    public void testSaveAndFindAll() {
         //Given
         int initialNumberOfUsers = userRepository.findAll().size();
         User user1 = new User();

@@ -24,7 +24,7 @@ public class EventTestSuite {
 
     @Test
     @Transactional(rollbackOn = {Exception.class})
-    public void SaveAndFindAll() {
+    public void testSaveAndFindAll() {
         //Given
         int initialNumberOfEvents = eventRepository.findAll().size();
         Event event1 = new Event();
