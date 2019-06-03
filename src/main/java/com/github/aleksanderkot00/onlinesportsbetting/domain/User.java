@@ -31,6 +31,10 @@ public class User {
     @Column(precision = 9, scale = 2)
     private BigDecimal balance;
 
+    @NotNull
+    @Size(min = 8, max = 25)
+    private String password;
+
     public long getUserId() {
         return userId;
     }
@@ -71,6 +75,14 @@ public class User {
         this.balance = balance;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,11 +92,12 @@ public class User {
                 Objects.equals(name, user.name) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(balance, user.balance);
+                Objects.equals(balance, user.balance) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, lastName, email, balance);
+        return Objects.hash(userId, name, lastName, email, balance, password);
     }
 }

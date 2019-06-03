@@ -31,12 +31,14 @@ public class UserTestSuite {
         user1.setLastName("Test Lastname1");
         user1.setEmail("email1@test.com");
         user1.setBalance(new BigDecimal("1231.11"));
+        user1.setPassword("Password23");
 
         User user2 = new User();
         user2.setName("Test Name2");
         user2.setLastName("Test Lastname2");
         user2.setEmail("email2@test.com");
         user2.setBalance(new BigDecimal("100.99"));
+        user2.setPassword("Password123");
 
         //When
         userRepository.save(user1);
@@ -59,6 +61,7 @@ public class UserTestSuite {
         user.setLastName("Test Lastname1");
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
+        user.setPassword("Password123");
         userRepository.save(user);
 
         //When
@@ -78,6 +81,7 @@ public class UserTestSuite {
         user.setLastName("Test Lastname1");
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
+        user.setPassword("Password123");
         userRepository.save(user);
 
         //When
@@ -100,6 +104,7 @@ public class UserTestSuite {
         user.setLastName("Test Lastname1");
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
+        user.setPassword("Password123");
         userRepository.save(user);
 
         //When
