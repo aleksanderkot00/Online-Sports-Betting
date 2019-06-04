@@ -12,25 +12,25 @@ import java.util.List;
 public class EventService {
 
     @Autowired
-    private EventRepository eventRepository;
+    public EventRepository eventRepository;
 
-    private List<Event> getEvents() {
+    public List<Event> getEvents() {
         return eventRepository.findAll();
     }
 
-    private Event getEvent(long eventId) {
+    public Event getEvent(long eventId) {
         return eventRepository.findById(eventId).orElseThrow(EventNotFoundException::new);
     }
 
-    private Event addEvent(Event event) {
+    public Event addEvent(Event event) {
         return eventRepository.save(event);
     }
 
-    private Event editEvent(long eventId, Event event) {
+    public Event editEvent(long eventId, Event event) {
         return eventRepository.save(event);
     }
 
-    private void deleteEvent(long eventId) {
+    public void deleteEvent(long eventId) {
         eventRepository.deleteById(eventId);
     }
 }
