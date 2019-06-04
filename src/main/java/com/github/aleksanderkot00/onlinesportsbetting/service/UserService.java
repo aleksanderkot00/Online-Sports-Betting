@@ -23,6 +23,10 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+
     public User editUser(long userId, UserDto userDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         if (userDto.getName() != "" && userDto.getName() != null) user.setName(userDto.getName());
@@ -30,10 +34,6 @@ public class UserService {
         if (userDto.getEmail() != "" && userDto.getEmail() != null) user.setEmail(userDto.getEmail());
         if (userDto.getPassword() != "" && userDto.getPassword() != null) user.setPassword(userDto.getPassword());
 
-        return userRepository.save(user);
-    }
-
-    public User addUser(User user) {
         return userRepository.save(user);
     }
 
