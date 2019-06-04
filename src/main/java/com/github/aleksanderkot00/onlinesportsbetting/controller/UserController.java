@@ -30,7 +30,17 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUser(UserDto userDto) {
+    public User addUser(@RequestBody UserDto userDto) {
         return userService.addUser(userMapper.mapToUser(userDto));
+    }
+
+    @PutMapping("/{userId}")
+    public User editUser(@PathVariable long userId, @RequestBody UserDto userDto) {
+        return userService.editUser(userId, userDto);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable long userId) {
+        userService.deleteUser(userId);
     }
 }
