@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BetDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class BetService {
         return betRepository.save(bet);
     }
 
-    public Bet editBet(long betId, Bet bet) {
+    public Bet changeActivity(long betId) {
+        Bet bet = betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
+        bet.setActive(!bet.isActive());
         return betRepository.save(bet);
     }
 
