@@ -1,6 +1,8 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Results;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.EventDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.EventNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,14 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event editEvent(long eventId, Event event) {
+    public Event editEvent(long eventId, EventDto eventDto) {
+        Event event = eventRepository.findById(eventId).orElseThrow(EventNotFoundException::new);
+        event.setResult(Results.NOT_FINISHED);
+        if (eventDto.getDateTime() != null) event.setDateTime(eventDto.getDateTime());
+        if (eventDto.getTeamOneName() != "" && eventDto.getTeamOneName() != null) event.setTeamOneName(eventDto.getTeamOneName());
+        if (eventDto.getTeamTwoName() != "" && eventDto.getTeamTwoName() != null) event.setTeamTwoName(eventDto.getTeamTwoName());
+        if (eventDto.getResult() != null) event.setResult(eventDto.getResult());
+
         return eventRepository.save(event);
     }
 
