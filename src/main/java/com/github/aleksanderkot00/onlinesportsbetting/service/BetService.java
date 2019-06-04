@@ -1,0 +1,36 @@
+package com.github.aleksanderkot00.onlinesportsbetting.service;
+
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class BetService {
+
+    @Autowired
+    private BetRepository betRepository;
+
+    public List<Bet> getEvents() {
+        return betRepository.findAll();
+    }
+
+    public Bet getEvent(long betId) {
+        return betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
+    }
+
+    public Bet addBet(Bet bet) {
+        return betRepository.save(bet);
+    }
+
+    public Bet editBet(long betId, Bet bet) {
+        return betRepository.save(bet);
+    }
+
+    public void deleteBet(long betId) {
+        betRepository.deleteById(betId);
+    }
+}

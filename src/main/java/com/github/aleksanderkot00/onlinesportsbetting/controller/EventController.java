@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/events")
 public class EventController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class EventController {
     }
 
     @DeleteMapping("/{eventId}")
-    public void deleteUser(@PathVariable long eventId) {
+    public void deleteEvent(@PathVariable long eventId) {
         eventService.deleteEvent(eventId);
     }
 }
