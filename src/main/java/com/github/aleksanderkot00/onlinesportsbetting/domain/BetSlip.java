@@ -12,32 +12,34 @@ public class BetSlip {
     @NotNull
     @Id
     @GeneratedValue
-    private long id;
+    private long betSlipId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "BET_ID")
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name="BETSLIP_BET", joinColumns = @JoinColumn(name = "BET_SLIP_ID"), inverseJoinColumns = @JoinColumn(name = "BET_ID"))
     private Set<Bet> bets;
 
     @NotNull
+    @Column(precision = 9, scale = 2)
     private BigDecimal stake;
 
+    @NotNull
     private BigDecimal totalOdds;
 
-    public long getId() {
-        return id;
+    public long getBetSlipId() {
+        return betSlipId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setBetSlipId(long betSlipId) {
+        this.betSlipId = betSlipId;
     }
 
-    public Set<Bet> getBets() {
-        return bets;
-    }
-
-    public void setBets(Set<Bet> bets) {
-        this.bets = bets;
-    }
+//    public Set<Bet> getBets() {
+//        return bets;
+//    }
+//
+//    public void setBets(Set<Bet> bets) {
+//        this.bets = bets;
+//    }
 
     public BigDecimal getStake() {
         return stake;
@@ -60,14 +62,13 @@ public class BetSlip {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BetSlip betSlip = (BetSlip) o;
-        return id == betSlip.id &&
-                Objects.equals(bets, betSlip.bets) &&
+        return betSlipId == betSlip.betSlipId &&
                 Objects.equals(stake, betSlip.stake) &&
                 Objects.equals(totalOdds, betSlip.totalOdds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bets, stake, totalOdds);
+        return Objects.hash(betSlipId, stake, totalOdds);
     }
 }
