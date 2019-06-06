@@ -15,11 +15,11 @@ public class BetService {
     @Autowired
     private BetRepository betRepository;
 
-    public List<Bet> getEvents() {
+    public List<Bet> getBets() {
         return betRepository.findAll();
     }
 
-    public Bet getEvent(long betId) {
+    public Bet getBet(long betId) {
         return betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
     }
 

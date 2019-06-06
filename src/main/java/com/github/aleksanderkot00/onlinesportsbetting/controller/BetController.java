@@ -21,12 +21,12 @@ public class BetController {
 
     @GetMapping
     public List<Bet> getBets() {
-        return betService.getEvents();
+        return betService.getBets();
     }
 
     @GetMapping("/{betId}")
     public Bet getBet(@PathVariable long betId) {
-        return betService.getEvent(betId);
+        return betService.getBet(betId);
     }
 
     @PostMapping
