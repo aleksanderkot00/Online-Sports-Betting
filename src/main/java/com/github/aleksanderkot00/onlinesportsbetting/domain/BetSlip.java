@@ -24,7 +24,7 @@ public class BetSlip {
     private BigDecimal stake;
 
     @NotNull
-    private BigDecimal totalOdds;
+    private BigDecimal totalOdds = BigDecimal.ONE;
 
     public long getBetSlipId() {
         return betSlipId;
