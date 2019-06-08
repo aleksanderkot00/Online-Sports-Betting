@@ -32,8 +32,7 @@ public class User {
     private BigDecimal balance;
 
     @NotNull
-    @Size(min = 8, max = 25)
-    private String password;
+    private String encryptedPassword;
 
     public long getUserId() {
         return userId;
@@ -75,12 +74,12 @@ public class User {
         this.balance = balance;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 
     @Override
@@ -93,11 +92,11 @@ public class User {
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(balance, user.balance) &&
-                Objects.equals(password, user.password);
+                Objects.equals(encryptedPassword, user.encryptedPassword);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, lastName, email, balance, password);
+        return Objects.hash(userId, name, lastName, email, balance, encryptedPassword);
     }
 }

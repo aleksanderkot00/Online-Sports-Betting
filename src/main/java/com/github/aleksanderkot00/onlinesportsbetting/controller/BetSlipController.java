@@ -28,4 +28,14 @@ public class BetSlipController {
     public void deleteBetSlip(@PathVariable long betSlipId) {
         betSlipService.deleteBetSlip(betSlipId);
     }
+
+    @PutMapping("/{betSlipId}/bet/{betId}")
+    public BetSlip addBetToSlip(@PathVariable long betSlipId, @PathVariable long betId) {
+        return betSlipService.addBetToSlip(betSlipId, betId);
+    }
+
+    @DeleteMapping("/{betSlipId}/bet/{betId}")
+    public BetSlip removeBetFromSlip(@PathVariable long betSlipId, @PathVariable long betId) {
+        return betSlipService.removeBetFromSlip(betSlipId, betId);
+    }
 }

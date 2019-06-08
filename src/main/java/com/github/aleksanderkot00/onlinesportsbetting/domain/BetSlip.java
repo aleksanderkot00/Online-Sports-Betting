@@ -3,9 +3,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "BET_SLIPS")
 public class BetSlip {
@@ -17,7 +15,7 @@ public class BetSlip {
 
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="BETSLIP_BET", joinColumns = @JoinColumn(name = "BET_SLIP_ID"), inverseJoinColumns = @JoinColumn(name = "BET_ID"))
-    private Set<Bet> bets = new HashSet<>();
+    private List<Bet> bets = new ArrayList<>();
 
     @NotNull
     @Column(precision = 9, scale = 2)
@@ -34,7 +32,7 @@ public class BetSlip {
         this.betSlipId = betSlipId;
     }
 
-    public Set<Bet> getBets() {
+    public List<Bet> getBets() {
         return bets;
     }
 

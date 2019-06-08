@@ -32,7 +32,7 @@ public class UserService {
         if (userDto.getName() != "" && userDto.getName() != null) user.setName(userDto.getName());
         if (userDto.getLastName() != "" && userDto.getLastName() != null) user.setLastName(userDto.getLastName());
         if (userDto.getEmail() != "" && userDto.getEmail() != null) user.setEmail(userDto.getEmail());
-        if (userDto.getPassword() != "" && userDto.getPassword() != null) user.setPassword(userDto.getPassword());
+        if (userDto.getPassword() != "" && userDto.getPassword() != null) user.setEncryptedPassword(userDto.getPassword());
 
         return userRepository.save(user);
     }
