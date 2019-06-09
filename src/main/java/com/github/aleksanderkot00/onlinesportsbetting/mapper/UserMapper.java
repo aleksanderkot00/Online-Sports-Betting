@@ -3,6 +3,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.mapper;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +28,7 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setEncryptedPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setBalance(BigDecimal.ZERO);
-        Role role = roleRepository.findByRole("USER").get();
+        Role role = roleRepository.findByRole("USER").orElseThrow(RoleNotFoundException::new);
         user.getRoles().add(role);
 
         return user;
