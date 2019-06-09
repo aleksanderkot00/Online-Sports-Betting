@@ -29,18 +29,19 @@ public class FootballApiClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<FootballMatchDto> getMatches(long leagueId) {
+    public List<FootballMatchDto> getLastMatches(int leagueId, int lastDayes) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(apiConfig.getFootballApiEndpoint())
-                .queryParam("key", apiConfig.getFootballApiKey())
+                .queryParam("action", "get_events")
+                .queryParam("APIkey", apiConfig.getFootballApiKey())
                 .queryParam("league_id", leagueId)
-                .queryParam("from", LocalDate.now().toString())
-                .queryParam("to", LocalDate.now().minusDays(7).toString())
+                .queryParam("from", LocalDate.now().minusDays(lastDayes).toString())
+                .queryParam("to", LocalDate.now().toString())
                 .build().encode().toUri();
 
         try {
-            FootballMatchDto[] boardsResponse = restTemplate.getForObject(url, FootballMatchDto[].class);
-            return Arrays.asList(ofNullable(boardsResponse).orElse(new FootballMatchDto[0]));
+            FootballMatchDto[] matchDtos = restTemplate.getForObject(url, FootballMatchDto[].class);
+            return Arrays.asList(ofNullable(matchDtos).orElse(new FootballMatchDto[0]));
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();

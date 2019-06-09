@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,17 +19,17 @@ public class FootballMatchDto {
     private String league;
 
     @JsonProperty("match_date")
-    private LocalDate date;
+    private String date;
 
     @JsonProperty("match_hometeam_name")
     private String teamOneName;
 
     @JsonProperty("match_hometeam_score")
-    private int teamOneScore;
+    private String teamOneScore;
 
     @JsonProperty("match_awayteam_name")
     private String teamTwoName;
 
     @JsonProperty("match_awayteam_score")
-    private int teamTwoScore;
+    private String teamTwoScore;
 }
