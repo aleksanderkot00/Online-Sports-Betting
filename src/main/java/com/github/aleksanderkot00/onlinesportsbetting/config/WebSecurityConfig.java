@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.httpBasic().and()
                 .authorizeRequests()
-                .antMatchers( "/matches", "/h2-console/**").permitAll()
+                .antMatchers( "/rates","/matches", "/h2-console/**").permitAll()
                 .anyRequest().hasRole("USER")
                 .and()
                 .formLogin()

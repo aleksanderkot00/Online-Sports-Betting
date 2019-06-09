@@ -1,10 +1,12 @@
-package com.github.aleksanderkot00.onlinesportsbetting.api.football;
+package com.github.aleksanderkot00.onlinesportsbetting.api.football.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class FootballMatchDto {
     private String league;
 
     @JsonProperty("match_date")
-    private String date;
+    private LocalDate date;
 
     @JsonProperty("match_hometeam_name")
     private String teamOneName;

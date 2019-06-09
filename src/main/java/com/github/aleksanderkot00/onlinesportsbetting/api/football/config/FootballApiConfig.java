@@ -7,6 +7,13 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class FootballApiConfig {
+
+    @Value("${api.football.endpoint}")
+    private String footballApiEndpoint;
+
+    @Value("${api.football.key}")
+    private String footballApiKey;
+
     @Value("${api.football.premierleague.id}")
     private int premierLeagueId;
 
@@ -18,10 +25,4 @@ public class FootballApiConfig {
 
     @Value("${api.football.laliga.id}")
     private int laLigaId;
-
-    @Value("${api.football.endpoint}")
-    private String footballApiEndpoint;
-
-    @Value("${api.football.key}")
-    private String footballApiKey;
 }

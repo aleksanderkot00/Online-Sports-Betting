@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.client;
 
-import com.github.aleksanderkot00.onlinesportsbetting.api.football.FootballMatchDto;
+import com.github.aleksanderkot00.onlinesportsbetting.api.football.dto.FootballMatchDto;
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.FootballApiConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +29,13 @@ public class FootballApiClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<FootballMatchDto> getLastMatches(int leagueId, int lastDayes) {
+    public List<FootballMatchDto> getLastMatches(int leagueId, int lastDays) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(apiConfig.getFootballApiEndpoint())
                 .queryParam("action", "get_events")
                 .queryParam("APIkey", apiConfig.getFootballApiKey())
                 .queryParam("league_id", leagueId)
-                .queryParam("from", LocalDate.now().minusDays(lastDayes).toString())
+                .queryParam("from", LocalDate.now().minusDays(lastDays).toString())
                 .queryParam("to", LocalDate.now().toString())
                 .build().encode().toUri();
 
