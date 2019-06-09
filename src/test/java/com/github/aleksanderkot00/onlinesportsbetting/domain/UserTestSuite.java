@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,10 @@ public class UserTestSuite {
         user1.setEmail("email1@test.com");
         user1.setBalance(new BigDecimal("1231.11"));
         user1.setEncryptedPassword("Password23");
+        user1.setActive(true);
+        Role role = new Role();
+        role.setRole("USER");
+        user1.getRoles().add(role);
 
         User user2 = new User();
         user2.setName("Test Name2");
@@ -39,6 +44,8 @@ public class UserTestSuite {
         user2.setEmail("email2@test.com");
         user2.setBalance(new BigDecimal("100.99"));
         user2.setEncryptedPassword("Password123");
+        user2.setActive(true);
+        user1.getRoles().add(role);
 
         //When
         userRepository.save(user1);
@@ -62,6 +69,7 @@ public class UserTestSuite {
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
         user.setEncryptedPassword("Password123");
+        user.setActive(true);
         userRepository.save(user);
 
         //When
@@ -82,6 +90,7 @@ public class UserTestSuite {
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
         user.setEncryptedPassword("Password123");
+        user.setActive(true);
         userRepository.save(user);
 
         //When
@@ -105,6 +114,7 @@ public class UserTestSuite {
         user.setEmail("email1@test.com");
         user.setBalance(new BigDecimal("1231.11"));
         user.setEncryptedPassword("Password123");
+        user.setActive(true);
         userRepository.save(user);
 
         //When

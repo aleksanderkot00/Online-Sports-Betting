@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
-public enum Results {
+public enum Result {
     ZERO,
     ONE,
     TWO,

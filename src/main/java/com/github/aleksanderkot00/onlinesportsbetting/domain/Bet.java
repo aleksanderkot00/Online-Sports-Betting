@@ -18,7 +18,7 @@ public class Bet {
     private Event event;
 
     @NotNull
-    private Results type;
+    private Result type;
 
     @NotNull
     private BigDecimal odds;
@@ -42,11 +42,11 @@ public class Bet {
         this.event = event;
     }
 
-    public Results getType() {
+    public Result getType() {
         return type;
     }
 
-    public void setType(Results type) {
+    public void setType(Result type) {
         this.type = type;
     }
 

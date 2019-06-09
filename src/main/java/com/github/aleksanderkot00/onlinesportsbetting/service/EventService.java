@@ -1,7 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Results;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Result;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.EventDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.EventNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.EventRepository;
@@ -30,7 +30,7 @@ public class EventService {
 
     public Event editEvent(long eventId, EventDto eventDto) {
         Event event = eventRepository.findById(eventId).orElseThrow(EventNotFoundException::new);
-        event.setResult(Results.NOT_FINISHED);
+        event.setResult(Result.NOT_FINISHED);
         if (eventDto.getDateTime() != null) event.setDateTime(eventDto.getDateTime());
         if (eventDto.getTeamOneName() != "" && eventDto.getTeamOneName() != null) event.setTeamOneName(eventDto.getTeamOneName());
         if (eventDto.getTeamTwoName() != "" && eventDto.getTeamTwoName() != null) event.setTeamTwoName(eventDto.getTeamTwoName());

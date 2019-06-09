@@ -115,22 +115,22 @@ public class BetSlipTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019, 12, 12, 20, 30, 0));
-        event.setResult(Results.ONE);
+        event.setResult(Result.ONE);
         eventRepository.save(event);
         Bet betOne = new Bet();
         betOne.setActive(true);
         betOne.setEvent(event);
-        betOne.setType(Results.ONE);
+        betOne.setType(Result.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
         Bet betTwo = new Bet();
         betTwo.setActive(true);
         betTwo.setEvent(event);
-        betTwo.setType(Results.TWO);
+        betTwo.setType(Result.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Results.ZERO);
+        betZero.setType(Result.ZERO);
         betZero.setOdds(new BigDecimal("2.11"));
 
         BetSlip betSlip = new BetSlip();

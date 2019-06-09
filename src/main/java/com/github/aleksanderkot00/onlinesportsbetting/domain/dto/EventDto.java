@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Results;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Result;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +8,7 @@ public class EventDto {
     private LocalDateTime dateTime;
     private String teamOneName;
     private String teamTwoName;
-    private Results result;
+    private Result result;
 
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -34,11 +34,11 @@ public class EventDto {
         this.teamTwoName = teamTwoName;
     }
 
-    public Results getResult() {
+    public Result getResult() {
         return result;
     }
 
-    public void setResult(Results result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 }

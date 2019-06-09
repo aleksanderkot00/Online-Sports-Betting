@@ -1,12 +1,12 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Results;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Result;
 
 import java.math.BigDecimal;
 
 public class BetDto {
     private long eventId;
-    private Results type;
+    private Result type;
     private BigDecimal odds;
     private boolean isActive;
 
@@ -18,11 +18,11 @@ public class BetDto {
         this.eventId = eventId;
     }
 
-    public Results getType() {
+    public Result getType() {
         return type;
     }
 
-    public void setType(Results type) {
+    public void setType(Result type) {
         this.type = type;
     }
 

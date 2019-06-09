@@ -36,19 +36,19 @@ public class BetTestSuite {
         Bet betOne = new Bet();
         betOne.setActive(true);
         betOne.setEvent(event);
-        betOne.setType(Results.ONE);
+        betOne.setType(Result.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
 
         Bet betTwo = new Bet();
         betTwo.setActive(true);
         betTwo.setEvent(event);
-        betTwo.setType(Results.TWO);
+        betTwo.setType(Result.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
 
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Results.TWO);
+        betZero.setType(Result.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
 
         //When
@@ -74,7 +74,7 @@ public class BetTestSuite {
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Results.TWO);
+        betZero.setType(Result.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
@@ -95,7 +95,7 @@ public class BetTestSuite {
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Results.TWO);
+        betZero.setType(Result.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
@@ -119,7 +119,7 @@ public class BetTestSuite {
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Results.TWO);
+        betZero.setType(Result.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
@@ -138,7 +138,7 @@ public class BetTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019, 12, 12, 20, 30, 0));
-        event.setResult(Results.ONE);
+        event.setResult(Result.ONE);
         eventRepository.save(event);
         return event;
     }

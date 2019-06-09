@@ -27,7 +27,7 @@ public class Event {
     @Size(min = 2, max = 35)
     private String teamTwoName;
 
-    private Results result;
+    private Result result;
 
     public long getEventId() {
         return eventId;
@@ -61,11 +61,11 @@ public class Event {
         this.teamTwoName = teamTwoName;
     }
 
-    public Results getResult() {
+    public Result getResult() {
         return result;
     }
 
-    public void setResult(Results result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 
