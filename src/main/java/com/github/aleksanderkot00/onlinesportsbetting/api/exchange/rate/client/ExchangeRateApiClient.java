@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.client;
 
-import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.config.ExchangeRateConfig;
+import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.config.ExchangeRateApiConfig;
 import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.dto.ExchangeRateDto;
 import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.exception.ExchangeRateNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ import static java.util.Optional.ofNullable;
 @Service
 public class ExchangeRateApiClient {
 
-    private final ExchangeRateConfig apiConfig;
+    private final ExchangeRateApiConfig apiConfig;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public ExchangeRateApiClient(ExchangeRateConfig apiConfig, RestTemplate restTemplate) {
+    public ExchangeRateApiClient(ExchangeRateApiConfig apiConfig, RestTemplate restTemplate) {
         this.apiConfig = apiConfig;
         this.restTemplate = restTemplate;
     }

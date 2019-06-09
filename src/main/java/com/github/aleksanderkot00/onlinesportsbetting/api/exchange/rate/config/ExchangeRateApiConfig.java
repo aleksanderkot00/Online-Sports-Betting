@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class ExchangeRateConfig {
+public class ExchangeRateApiConfig {
 
     @Value("${api.exchange.rate.endpoint}")
     private String exchangeRateApiEndpoint;
