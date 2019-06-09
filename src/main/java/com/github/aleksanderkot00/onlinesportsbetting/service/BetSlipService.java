@@ -7,18 +7,21 @@ import com.github.aleksanderkot00.onlinesportsbetting.exception.BetSlipNotFoundE
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetSlipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class BetSlipService {
 
-    @Autowired
-    private BetSlipRepository betSlipRepository;
+    private final BetSlipRepository betSlipRepository;
+    private final BetRepository betRepository;
 
     @Autowired
-    private BetRepository betRepository;
+    public BetSlipService(BetSlipRepository betSlipRepository, BetRepository betRepository) {
+        this.betSlipRepository = betSlipRepository;
+        this.betRepository = betRepository;
+    }
 
     public List<BetSlip> getBetSlips() {
         return betSlipRepository.findAll();

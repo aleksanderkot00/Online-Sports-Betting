@@ -13,11 +13,14 @@ import java.util.List;
 @RequestMapping("/bets")
 public class BetController {
 
-    @Autowired
-    private BetService betService;
+    private final BetService betService;
+    private final BetMapper betMapper;
 
     @Autowired
-    private BetMapper betMapper;
+    public BetController(BetService betService, BetMapper betMapper) {
+        this.betService = betService;
+        this.betMapper = betMapper;
+    }
 
     @GetMapping
     public List<Bet> getBets() {

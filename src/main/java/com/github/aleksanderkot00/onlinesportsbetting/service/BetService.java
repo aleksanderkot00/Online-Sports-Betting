@@ -1,19 +1,22 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BetDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class BetService {
 
+    private final BetRepository betRepository;
+
     @Autowired
-    private BetRepository betRepository;
+    public BetService(BetRepository betRepository) {
+        this.betRepository = betRepository;
+    }
 
     public List<Bet> getBets() {
         return betRepository.findAll();

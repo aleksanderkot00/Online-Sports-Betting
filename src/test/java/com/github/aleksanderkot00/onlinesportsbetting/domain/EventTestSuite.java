@@ -19,8 +19,12 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class EventTestSuite {
 
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
+    public EventTestSuite(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @Test
     @Transactional(rollbackOn = {Exception.class})

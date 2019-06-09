@@ -20,12 +20,14 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class BetSlipTestSuite {
 
-    @Autowired
-    private BetSlipRepository betSlipRepository;
+    private final BetSlipRepository betSlipRepository;
+    private final EventRepository eventRepository;
 
     @Autowired
-    private EventRepository eventRepository;
-
+    public BetSlipTestSuite(BetSlipRepository betSlipRepository, EventRepository eventRepository) {
+        this.betSlipRepository = betSlipRepository;
+        this.eventRepository = eventRepository;
+    }
 
     @Test
     @Transactional(rollbackOn = {Exception.class})

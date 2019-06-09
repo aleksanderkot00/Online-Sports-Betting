@@ -14,11 +14,14 @@ import java.util.List;
 @RequestMapping("/matches")
 public class FootballApiController {
 
-    @Autowired
-    private FootballApiClient footballApiClient;
+    private final FootballApiClient footballApiClient;
+    private final FootballApiConfig footballApiConfig;
 
     @Autowired
-    private FootballApiConfig footballApiConfig;
+    public FootballApiController(FootballApiClient footballApiClient, FootballApiConfig footballApiConfig) {
+        this.footballApiClient = footballApiClient;
+        this.footballApiConfig = footballApiConfig;
+    }
 
     @GetMapping
     public List<FootballMatchDto> getMatches() {

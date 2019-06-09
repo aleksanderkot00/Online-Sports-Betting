@@ -14,11 +14,14 @@ import java.math.BigDecimal;
 @Component
 public class UserMapper {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public UserMapper(PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
+    }
 
     public User mapToUser(UserDto userDto) {
         User user = new User();

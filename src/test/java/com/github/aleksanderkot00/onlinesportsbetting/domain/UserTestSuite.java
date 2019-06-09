@@ -18,8 +18,12 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UserTestSuite {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserTestSuite(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Test
     @Transactional(rollbackOn = {Exception.class})

@@ -13,11 +13,14 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
 
-    @Autowired
-    private EventService eventService;
+    private final EventService eventService;
+    private final EventMapper eventMapper;
 
     @Autowired
-    private EventMapper eventMapper;
+    public EventController(EventService eventService, EventMapper eventMapper) {
+        this.eventService = eventService;
+        this.eventMapper = eventMapper;
+    }
 
     @GetMapping
     public List<Event> getEvents() {

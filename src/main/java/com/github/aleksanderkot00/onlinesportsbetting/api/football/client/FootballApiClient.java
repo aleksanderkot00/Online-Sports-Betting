@@ -5,7 +5,7 @@ import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.Footba
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -18,16 +18,18 @@ import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
-@Component
+@Service
 public class FootballApiClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FootballApiClient.class);
+    private final FootballApiConfig apiConfig;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    private FootballApiConfig apiConfig;
-
-    @Autowired
-    private RestTemplate restTemplate;
+    public FootballApiClient(FootballApiConfig apiConfig, RestTemplate restTemplate) {
+        this.apiConfig = apiConfig;
+        this.restTemplate = restTemplate;
+    }
 
     public List<FootballMatchDto> getLastMatches(int leagueId, int lastDays) {
 

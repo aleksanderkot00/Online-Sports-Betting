@@ -10,8 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class BetMapper {
 
+    private final EventService eventService;
+
     @Autowired
-    private EventService eventService;
+    public BetMapper(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     public Bet mapToBet(BetDto betDto) {
         Event event = eventService.getEvent(betDto.getEventId());

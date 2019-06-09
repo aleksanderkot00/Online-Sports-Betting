@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/slips")
 public class BetSlipController {
 
+    private final BetSlipService betSlipService;
+
     @Autowired
-    private BetSlipService betSlipService;
+    public BetSlipController(BetSlipService betSlipService) {
+        this.betSlipService = betSlipService;
+    }
 
     @GetMapping
     public List<BetSlip> getBets() {
