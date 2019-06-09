@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +34,8 @@ public class FootballApiClient {
         URI url = UriComponentsBuilder.fromHttpUrl(apiConfig.getFootballApiEndpoint())
                 .queryParam("key", apiConfig.getFootballApiKey())
                 .queryParam("league_id", leagueId)
-                .queryParam("from", "name,id")
-                .queryParam("to", "all")
+                .queryParam("from", LocalDate.now().toString())
+                .queryParam("to", LocalDate.now().minusDays(7).toString())
                 .build().encode().toUri();
 
         try {

@@ -1,8 +1,10 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.config;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+@Getter
 @Component
 public class FootballApiConfig {
     @Value("${api.football.premierleague.id")
@@ -22,12 +24,4 @@ public class FootballApiConfig {
 
     @Value("${api.football.key}")
     private String footballApiKey;
-
-    public String getFootballApiEndpoint() {
-        return footballApiEndpoint;
-    }
-
-    public String getFootballApiKey() {
-        return footballApiKey;
-    }
 }

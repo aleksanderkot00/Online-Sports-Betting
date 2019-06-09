@@ -1,7 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
