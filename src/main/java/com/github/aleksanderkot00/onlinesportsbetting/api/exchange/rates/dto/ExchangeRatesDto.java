@@ -1,4 +1,4 @@
-package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.dto;
+package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,21 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RatesDto {
+public class ExchangeRatesDto {
 
-    @JsonProperty("EUR")
-    private BigDecimal euroRate;
+    @JsonProperty("rates")
+    private RatesDto rates;
 
-    @JsonProperty("USD")
-    private BigDecimal dollarRate;
-
-    @JsonProperty("GBP")
-    private BigDecimal poundRate;
+    @JsonProperty("date")
+    private LocalDate date;
 }

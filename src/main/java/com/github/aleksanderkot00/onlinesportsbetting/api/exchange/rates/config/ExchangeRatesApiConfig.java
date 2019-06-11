@@ -1,4 +1,4 @@
-package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rate.config;
+package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class ExchangeRateApiConfig {
+public class ExchangeRatesApiConfig {
 
-    @Value("${api.exchange.rate.endpoint}")
+    @Value("${api.exchange.rates.endpoint}")
     private String exchangeRateApiEndpoint;
 
-    @Value("${api.exchange.rate.base}")
+    @Value("${api.exchange.rates.base}")
     private String exchangeRateApiBase;
 }
