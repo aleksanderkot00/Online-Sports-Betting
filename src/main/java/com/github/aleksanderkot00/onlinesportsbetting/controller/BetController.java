@@ -36,7 +36,7 @@ public class BetController {
         return betMapper.mapToBetDto(betService.addBet(betMapper.mapToBet(betDto)));
     }
 
-    @PutMapping("/{betId}")
+    @PatchMapping("/{betId}")
     public BetDto changeActivity(@PathVariable long betId) {
         return betMapper.mapToBetDto(betService.changeActivity(betId));
     }

@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostAuthorize("returnObject.email == authentication.name")
-    @PutMapping("/{userId}")
+    @PatchMapping("/{userId}")
     public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto) {
         return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
     }

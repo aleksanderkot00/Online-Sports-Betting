@@ -36,7 +36,7 @@ public class EventController {
         return eventMapper.mapToEventDto(eventService.addEvent(eventMapper.mapToEvent(eventDto)));
     }
 
-    @PutMapping("/{eventId}")
+    @PatchMapping("/{eventId}")
     public EventDto editEvent(@PathVariable long eventId, @RequestBody EventDto eventDto) {
         return eventMapper.mapToEventDto(eventService.editEvent(eventId, eventDto));
     }

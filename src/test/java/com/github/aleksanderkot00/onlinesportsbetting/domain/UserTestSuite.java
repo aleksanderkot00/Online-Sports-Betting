@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,8 @@ public class UserTestSuite {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BetRepository repository;
 
     @Test
     @Transactional(rollbackOn = {Exception.class})
@@ -126,5 +129,20 @@ public class UserTestSuite {
         //Then
         assertEquals(initialNumberOfUsers, numberOfUsers);
         assertFalse(users.contains(user));
+    }
+
+    @Test
+    public void test() {
+        User user = userRepository.findById(20l).get();
+        user.setBalance(new BigDecimal("2000.00"));
+        userRepository.save(user);
+        Bet bet1 = repository.findById(38l).get();
+        Bet bet2 = repository.findById(37l).get();
+        bet1.setActive(true);
+        bet2.setActive(true);
+        repository.save(bet1);
+        repository.save(bet2);
+
+
     }
 }

@@ -1,10 +1,9 @@
 package com.github.aleksanderkot00.onlinesportsbetting.facade;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import com.github.aleksanderkot00.onlinesportsbetting.validator.CartSlipValidator;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +19,11 @@ public class SlipOrderFacade {
         this.userService = userService;
     }
 
-    public SlipDto orderSlip(String email) {
+    public Slip orderSlip(String email) {
         User user = userService.getUser(email);
         validator.validateCartSlip(user);
         userService.orderCartSlip(email);
 
-        return new SlipDto();
+        return user.getCartSlip();
     }
 }
