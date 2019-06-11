@@ -8,14 +8,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExchangeRatesService {
 
-    private final ExchangeRatesRepository exchangeRatesRepository;
+    private final ExchangeRatesRepository ratesRepository;
 
     @Autowired
-    public ExchangeRatesService(ExchangeRatesRepository exchangeRatesRepository) {
-        this.exchangeRatesRepository = exchangeRatesRepository;
+    public ExchangeRatesService(ExchangeRatesRepository ratesRepository) {
+        this.ratesRepository = ratesRepository;
     }
 
     public ExchangeRates save(ExchangeRates exchangeRates) {
-        return exchangeRatesRepository.save(exchangeRates);
+        return ratesRepository.save(exchangeRates);
+    }
+
+    public ExchangeRates getLastRates() {
+        return ratesRepository.getLastRates();
     }
 }

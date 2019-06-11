@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.repository;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.ExchangeRates;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface ExchangeRatesRepository extends CrudRepository<ExchangeRates, L
 
     @Override
     Optional<ExchangeRates> findById(Long id);
+
+    @Query(nativeQuery = true)
+    ExchangeRates getLastRates();
 }
