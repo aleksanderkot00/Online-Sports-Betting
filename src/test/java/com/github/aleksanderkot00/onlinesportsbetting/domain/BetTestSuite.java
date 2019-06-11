@@ -12,9 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -36,19 +34,16 @@ public class BetTestSuite {
 
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betOne = new Bet();
-        betOne.setActive(true);
         betOne.setEvent(event);
         betOne.setType(BetResult.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
 
         Bet betTwo = new Bet();
-        betTwo.setActive(true);
         betTwo.setEvent(event);
         betTwo.setType(BetResult.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
 
         Bet betZero = new Bet();
-        betZero.setActive(true);
         betZero.setEvent(event);
         betZero.setType(BetResult.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
@@ -74,7 +69,6 @@ public class BetTestSuite {
         Event event = createEventInDb();
 
         Bet betZero = new Bet();
-        betZero.setActive(true);
         betZero.setEvent(event);
         betZero.setType(BetResult.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
@@ -95,7 +89,6 @@ public class BetTestSuite {
 
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betZero = new Bet();
-        betZero.setActive(true);
         betZero.setEvent(event);
         betZero.setType(BetResult.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
@@ -119,7 +112,6 @@ public class BetTestSuite {
 
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betZero = new Bet();
-        betZero.setActive(true);
         betZero.setEvent(event);
         betZero.setType(BetResult.TWO);
         betZero.setOdds(new BigDecimal("3.41"));

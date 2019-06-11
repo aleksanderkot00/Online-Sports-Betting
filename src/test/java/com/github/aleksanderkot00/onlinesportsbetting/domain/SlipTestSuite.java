@@ -146,8 +146,5 @@ public class SlipTestSuite {
 
         //Then
         assertEquals(3, retrievedSlip.getBets().size());
-        assertTrue(retrievedSlip.getBets().contains(betOne));
-        assertTrue(retrievedSlip.getBets().contains(betTwo));
-        assertTrue(retrievedSlip.getBets().contains(betZero));
     }
 }

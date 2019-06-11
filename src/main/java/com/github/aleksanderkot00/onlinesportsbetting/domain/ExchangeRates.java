@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @NamedNativeQuery(
         name = "ExchangeRates.getLastRates",
-        query = "SELECT * FROM osb_crud.exchange_rates ORDER BY id DESC LIMIT 1",
+        query = "SELECT * FROM osb_crud.exchange_rates ORDER BY date DESC LIMIT 1",
         resultClass = ExchangeRates.class
 )
 @Data
@@ -25,15 +25,15 @@ public class ExchangeRates {
     @NotNull
     private LocalDate date;
 
-    @Column(precision = 4, scale = 2)
+    @Column(precision = 5, scale = 3)
     @Min(value = 0)
     private BigDecimal euroRate;
 
-    @Column(precision = 4, scale = 2)
+    @Column(precision = 5, scale = 3)
     @Min(value = 0)
     private BigDecimal dollarRate;
 
-    @Column(precision = 4, scale = 2)
+    @Column(precision = 5, scale = 3)
     @Min(value = 0)
     private BigDecimal poundRate;
 }
