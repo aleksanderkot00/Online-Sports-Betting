@@ -1,6 +1,5 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.EventDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.EventMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.EventService;
@@ -23,23 +22,23 @@ public class EventController {
     }
 
     @GetMapping
-    public List<Event> getEvents() {
-        return eventService.getEvents();
+    public List<EventDto> getEvents() {
+        return eventMapper.mapToEventDtoList(eventService.getEvents());
     }
 
     @GetMapping("/{eventId}")
-    public Event getEvent(@PathVariable long eventId) {
-        return eventService.getEvent(eventId);
+    public EventDto getEvent(@PathVariable long eventId) {
+        return eventMapper.mapToEventDto(eventService.getEvent(eventId));
     }
 
     @PostMapping
-    public Event addEvent(@RequestBody EventDto eventDto) {
-        return eventService.addEvent(eventMapper.mapToEvent(eventDto));
+    public EventDto addEvent(@RequestBody EventDto eventDto) {
+        return eventMapper.mapToEventDto(eventService.addEvent(eventMapper.mapToEvent(eventDto)));
     }
 
     @PutMapping("/{eventId}")
-    public Event editEvent(@PathVariable long eventId, @RequestBody EventDto eventDto) {
-        return eventService.editEvent(eventId, eventDto);
+    public EventDto editEvent(@PathVariable long eventId, @RequestBody EventDto eventDto) {
+        return eventMapper.mapToEventDto(eventService.editEvent(eventId, eventDto));
     }
 
     @DeleteMapping("/{eventId}")

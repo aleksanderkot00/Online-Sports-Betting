@@ -2,8 +2,10 @@ package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,8 +13,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +24,14 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
     }
 
     public List<User> getUsers() {
@@ -38,24 +46,32 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public User addUser(UserRegistrationDto userRegistrationDto) {
+        User user = new User();
+        user.setName(userRegistrationDto.getName());
+        user.setLastName(userRegistrationDto.getLastName());
+        user.setEmail(userRegistrationDto.getEmail());
+        user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
+        user.setBalance(BigDecimal.ZERO);
+        user.getRoles().add(roleRepository.findByRole("USER").orElseThrow(RoleNotFoundException::new));
+
+        return user;
     }
 
-    public User editUser(long userId, UserDto userDto) {
+    public User editUser(long userId, UserRegistrationDto userRegistrationDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if (userDto.getName() != "" && userDto.getName() != null) {
-            user.setName(userDto.getName());
+        if (userRegistrationDto.getName() != "" && userRegistrationDto.getName() != null) {
+            user.setName(userRegistrationDto.getName());
         }
-        if (userDto.getLastName() != "" && userDto.getLastName() != null) {
-            user.setLastName(userDto.getLastName());
+        if (userRegistrationDto.getLastName() != "" && userRegistrationDto.getLastName() != null) {
+            user.setLastName(userRegistrationDto.getLastName());
         }
-        if (userDto.getEmail() != "" && userDto.getEmail() != null) {
-            user.setEmail(userDto.getEmail());
+        if (userRegistrationDto.getEmail() != "" && userRegistrationDto.getEmail() != null) {
+            user.setEmail(userRegistrationDto.getEmail());
         }
-        if (userDto.getPassword() != "" && userDto.getPassword() != null) {
-            user.setEncryptedPassword(userDto.getPassword());
+        if (userRegistrationDto.getPassword() != "" && userRegistrationDto.getPassword() != null) {
+            user.setEncryptedPassword(userRegistrationDto.getPassword());
         }
 
         return userRepository.save(user);

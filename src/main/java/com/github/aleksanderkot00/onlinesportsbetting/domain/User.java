@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -33,11 +34,13 @@ public class User {
     private String email;
 
     @Column(precision = 9, scale = 2)
+    @Min(value = 0)
     private BigDecimal balance;
 
     @NotNull
     private String encryptedPassword;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CART_SLIP_ID")
     private Slip cartSlip = new Slip();

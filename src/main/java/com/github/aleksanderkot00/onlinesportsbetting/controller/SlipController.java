@@ -1,6 +1,5 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.SlipMapper;
@@ -38,14 +37,14 @@ public class SlipController {
     }
 
     @PutMapping("/bets/{betId}")
-    public Slip addBetToSlip(@PathVariable long betId, Principal principal) {
+    public SlipDto addBetToSlip(@PathVariable long betId, Principal principal) {
         User user = userService.getUser(principal.getName());
-        return slipService.addBetToSlip(user.getCartSlip().getSlipId(), betId);
+        return slipMapper.mapToSlipDto(slipService.addBetToSlip(user.getCartSlip().getSlipId(), betId));
     }
 
     @DeleteMapping("/bets/{betId}")
-    public Slip removeBetFromSlip(@PathVariable long betId, Principal principal) {
+    public SlipDto removeBetFromSlip(@PathVariable long betId, Principal principal) {
         User user = userService.getUser(principal.getName());
-        return slipService.removeBetFromSlip(user.getCartSlip().getSlipId(), betId);
+        return slipMapper.mapToSlipDto(slipService.removeBetFromSlip(user.getCartSlip().getSlipId(), betId));
     }
 }

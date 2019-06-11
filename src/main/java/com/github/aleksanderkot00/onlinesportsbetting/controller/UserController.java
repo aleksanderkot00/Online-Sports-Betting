@@ -1,7 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +25,25 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers(){
-        return userService.getUsers();
+    public List<UserDto> getUsers(){
+        return userMapper.mapToUserDtoList(userService.getUsers());
     }
 
     @PostAuthorize("returnObject.email == authentication.name")
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable long userId){
-        return userService.getUser(userId);
+    public UserDto getUser(@PathVariable long userId){
+        return userMapper.mapToUserDto(userService.getUser(userId));
     }
 
     @PostMapping
-    public User addUser(@RequestBody UserDto userDto) {
-        return userService.addUser(userMapper.mapToUser(userDto));
+    public UserDto addUser(@RequestBody UserRegistrationDto userRegistrationDto) {
+        return userMapper.mapToUserDto(userService.addUser(userRegistrationDto));
     }
 
     @PostAuthorize("returnObject.email == authentication.name")
     @PutMapping("/{userId}")
-    public User editUser(@PathVariable long userId, @RequestBody UserDto userDto) {
-        return userService.editUser(userId, userDto);
+    public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto) {
+        return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

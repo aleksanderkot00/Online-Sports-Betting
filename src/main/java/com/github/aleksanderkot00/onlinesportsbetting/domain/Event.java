@@ -16,6 +16,10 @@ public class Event {
     @GeneratedValue
     private long eventId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
+
     @NotNull
     private LocalDateTime dateTime;
 
@@ -27,9 +31,6 @@ public class Event {
     @Size(min = 2, max = 35)
     private String teamTwoName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID")
-    private Category category;
-
-    private Result result;
+    private int teamOneScore;
+    private int teamTwoScore;
 }

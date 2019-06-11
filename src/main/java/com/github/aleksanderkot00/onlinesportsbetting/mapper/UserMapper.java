@@ -3,37 +3,33 @@ package com.github.aleksanderkot00.onlinesportsbetting.mapper;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
 
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+    public UserDto mapToUserDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUserId(user.getUserId());
+        userDto.setName(user.getName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setBalance(user.getBalance());
+        userDto.setActive(user.isActive());
+        for (Role role: user.getRoles()) {
+            userDto.getRoles().add(role.getRole());
+        }
 
-    @Autowired
-    public UserMapper(PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
+        return userDto;
     }
 
-    public User mapToUser(UserDto userDto) {
-        User user = new User();
-        user.setActive(true);
-        user.setName(userDto.getName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setEncryptedPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setBalance(BigDecimal.ZERO);
-        Role role = roleRepository.findByRole("USER").orElseThrow(RoleNotFoundException::new);
-        user.getRoles().add(role);
-
-        return user;
+    public List<UserDto> mapToUserDtoList(List<User> users) {
+        return users.stream()
+                .map(user -> mapToUserDto(user))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,8 @@ public class Category {
     @GeneratedValue
     private long categoryId;
 
-    private String description;
+    @Size(min = 2, max = 30)
+    private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Event> events = new HashSet<>();

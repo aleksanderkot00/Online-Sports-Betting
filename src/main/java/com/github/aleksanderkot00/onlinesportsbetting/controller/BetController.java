@@ -1,6 +1,5 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BetDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.BetMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BetService;
@@ -23,23 +22,23 @@ public class BetController {
     }
 
     @GetMapping
-    public List<Bet> getBets() {
-        return betService.getBets();
+    public List<BetDto> getBets() {
+        return betMapper.mapToBetDtoList(betService.getBets());
     }
 
     @GetMapping("/{betId}")
-    public Bet getBet(@PathVariable long betId) {
-        return betService.getBet(betId);
+    public BetDto getBet(@PathVariable long betId) {
+        return betMapper.mapToBetDto(betService.getBet(betId));
     }
 
     @PostMapping
-    public Bet addBet(@RequestBody BetDto betDto) {
-        return betService.addBet(betMapper.mapToBet(betDto));
+    public BetDto addBet(@RequestBody BetDto betDto) {
+        return betMapper.mapToBetDto(betService.addBet(betMapper.mapToBet(betDto)));
     }
 
     @PutMapping("/{betId}")
-    public Bet changeActivity(@PathVariable long betId) {
-        return betService.changeActivity(betId);
+    public BetDto changeActivity(@PathVariable long betId) {
+        return betMapper.mapToBetDto(betService.changeActivity(betId));
     }
 
     @DeleteMapping("/{betId}")

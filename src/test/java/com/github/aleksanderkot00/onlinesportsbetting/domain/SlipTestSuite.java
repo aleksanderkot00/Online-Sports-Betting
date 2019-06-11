@@ -114,22 +114,22 @@ public class SlipTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019, 12, 12, 20, 30, 0));
-        event.setResult(Result.ONE);
+        event.setResult(BetResult.ONE);
         eventRepository.save(event);
         Bet betOne = new Bet();
         betOne.setActive(true);
         betOne.setEvent(event);
-        betOne.setType(Result.ONE);
+        betOne.setType(BetResult.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
         Bet betTwo = new Bet();
         betTwo.setActive(true);
         betTwo.setEvent(event);
-        betTwo.setType(Result.TWO);
+        betTwo.setType(BetResult.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(Result.ZERO);
+        betZero.setType(BetResult.ZERO);
         betZero.setOdds(new BigDecimal("2.11"));
 
         Slip slip = new Slip();

@@ -15,12 +15,13 @@ public class Bet {
     @GeneratedValue
     private long betId;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name="EVENT_ID")
     private Event event;
 
     @NotNull
-    private Result type;
+    private BetResult type;
 
     @NotNull
     private BigDecimal odds;
