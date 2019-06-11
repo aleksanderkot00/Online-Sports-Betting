@@ -2,9 +2,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -28,6 +26,10 @@ public class Event {
     @NotNull
     @Size(min = 2, max = 35)
     private String teamTwoName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 
     private Result result;
 }

@@ -20,7 +20,7 @@ public class User {
     private long userId;
 
     @NotNull
-    @Size(min = 2, max = 15)
+    @Size
     private String name;
 
     @NotNull
@@ -38,6 +38,18 @@ public class User {
     @NotNull
     private String encryptedPassword;
 
+    @OneToOne
+    @JoinColumn(name="CART_SLIP_ID")
+    private BetSlip cartSlip;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "USERS_SLIPS",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SLIP_ID")
+    )
+    private Set<BetSlip> slips = new HashSet<>();
+
     @NotNull
     private boolean active;
 
@@ -45,7 +57,7 @@ public class User {
     @JoinTable(
             name = "USERS_ROLES",
             joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"
-            ))
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
     private Set<Role> roles = new HashSet<>();
 }

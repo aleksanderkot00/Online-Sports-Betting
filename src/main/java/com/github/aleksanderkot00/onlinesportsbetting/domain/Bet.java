@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;;
+import java.math.BigDecimal;
 
 @Data
 @Entity(name = "BETS")
@@ -26,5 +26,5 @@ public class Bet {
     private BigDecimal odds;
 
     @NotNull
-    private boolean isActive;
+    private boolean active;
 }

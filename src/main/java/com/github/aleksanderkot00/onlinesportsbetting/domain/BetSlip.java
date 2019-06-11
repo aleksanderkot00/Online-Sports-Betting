@@ -17,12 +17,19 @@ public class BetSlip {
     private long betSlipId;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "BETSLIP_BET", joinColumns = @JoinColumn(name = "BET_SLIP_ID"), inverseJoinColumns = @JoinColumn(name = "BET_ID"))
-    private List<Bet> bets = new ArrayList<>();
+    @JoinTable(
+            name = "BETSLIP_BET",
+            joinColumns = @JoinColumn(name = "BET_SLIP_ID"),
+            inverseJoinColumns = @JoinColumn(name = "BET_ID")
+    )
+    private Set<Bet> bets = new HashSet<>();
 
     @NotNull
     @Column(precision = 9, scale = 2)
     private BigDecimal stake;
+
+    @NotNull
+    private SlipState state;
 
     @NotNull
     private BigDecimal totalOdds = BigDecimal.ONE;
