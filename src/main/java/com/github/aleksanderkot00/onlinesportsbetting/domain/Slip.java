@@ -33,4 +33,12 @@ public class Slip {
 
     @NotNull
     private BigDecimal totalOdds = BigDecimal.ONE;
+
+    public void refreshTotalOdds() {
+        BigDecimal odds = BigDecimal.ONE;
+        for (Bet bet: bets) {
+            odds = odds.multiply(bet.getOdds());
+        }
+        totalOdds = odds;
+    }
 }

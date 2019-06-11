@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,13 +32,13 @@ public class EventTestSuite {
         event1.setTeamOneName("Real Madryt");
         event1.setTeamTwoName("Barcelona");
         event1.setDateTime(LocalDateTime.of(2019,12,12,20,30,0));
-        event1.setResult(BetResult.ONE);
+        event1.setTeamOneScore(BigDecimal.ONE);
+        event1.setTeamOneScore(BigDecimal.ZERO);
 
         Event event2 = new Event();
         event2.setTeamOneName("Manchester City");
         event2.setTeamTwoName("Liverpool");
         event2.setDateTime(LocalDateTime.of(2019,5,22,17,45,0));
-        event2.setResult(BetResult.TWO);
 
         //When
         eventRepository.save(event1);
@@ -59,7 +60,8 @@ public class EventTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019,12,12,20,30,0));
-        event.setResult(BetResult.ONE);
+        event.setTeamOneScore(BigDecimal.ONE);
+        event.setTeamOneScore(BigDecimal.ZERO);
         eventRepository.save(event);
 
         //When
@@ -78,7 +80,8 @@ public class EventTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019,12,12,20,30,0));
-        event.setResult(BetResult.ONE);
+        event.setTeamOneScore(BigDecimal.ONE);
+        event.setTeamOneScore(BigDecimal.ZERO);
         eventRepository.save(event);
 
         //When
@@ -100,7 +103,8 @@ public class EventTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019,12,12,20,30,0));
-        event.setResult(BetResult.ONE);
+        event.setTeamOneScore(BigDecimal.ONE);
+        event.setTeamOneScore(BigDecimal.ZERO);
         eventRepository.save(event);
 
         //When

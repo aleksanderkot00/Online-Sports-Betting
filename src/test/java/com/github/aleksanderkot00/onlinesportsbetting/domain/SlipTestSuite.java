@@ -114,7 +114,8 @@ public class SlipTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019, 12, 12, 20, 30, 0));
-        event.setResult(BetResult.ONE);
+        event.setTeamOneScore(BigDecimal.ONE);
+        event.setTeamOneScore(BigDecimal.ZERO);
         eventRepository.save(event);
         Bet betOne = new Bet();
         betOne.setActive(true);

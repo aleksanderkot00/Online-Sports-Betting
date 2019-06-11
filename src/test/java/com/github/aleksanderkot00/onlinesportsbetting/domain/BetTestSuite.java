@@ -12,7 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -138,7 +140,8 @@ public class BetTestSuite {
         event.setTeamOneName("Real Madryt");
         event.setTeamTwoName("Barcelona");
         event.setDateTime(LocalDateTime.of(2019, 12, 12, 20, 30, 0));
-        event.setResult(BetResult.ONE);
+        event.setTeamOneScore(BigDecimal.ONE);
+        event.setTeamOneScore(BigDecimal.ZERO);
         eventRepository.save(event);
         return event;
     }

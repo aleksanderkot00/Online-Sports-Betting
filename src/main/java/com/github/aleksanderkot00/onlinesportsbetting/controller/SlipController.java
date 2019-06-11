@@ -33,7 +33,7 @@ public class SlipController {
     @PutMapping
     public SlipDto emptySlip(Principal principal) {
         User user = userService.getUser(principal.getName());
-        return slipMapper.mapToSlipDto(slipService.getSlip(user.getCartSlip().getSlipId()));
+        return slipMapper.mapToSlipDto(slipService.emptyCartSlip(user.getCartSlip().getSlipId()));
     }
 
     @PutMapping("/bets/{betId}")
