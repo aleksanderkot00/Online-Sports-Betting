@@ -8,28 +8,28 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Data
-@Entity(name = "BET_SLIPS")
-public class BetSlip {
+@Entity(name = "SLIPS")
+public class Slip {
 
     @NotNull
     @Id
     @GeneratedValue
-    private long betSlipId;
+    private long slipId;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "BETSLIP_BET",
-            joinColumns = @JoinColumn(name = "BET_SLIP_ID"),
+            name = "SLIPS_BETS",
+            joinColumns = @JoinColumn(name = "SLIP_ID"),
             inverseJoinColumns = @JoinColumn(name = "BET_ID")
     )
     private Set<Bet> bets = new HashSet<>();
 
     @NotNull
     @Column(precision = 9, scale = 2)
-    private BigDecimal stake;
+    private BigDecimal stake = BigDecimal.TEN;
 
     @NotNull
-    private SlipState state;
+    private SlipState state = SlipState.UNORDERED;
 
     @NotNull
     private BigDecimal totalOdds = BigDecimal.ONE;

@@ -38,17 +38,17 @@ public class User {
     @NotNull
     private String encryptedPassword;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CART_SLIP_ID")
-    private BetSlip cartSlip;
+    private Slip cartSlip = new Slip();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "USERS_SLIPS",
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "SLIP_ID")
     )
-    private Set<BetSlip> slips = new HashSet<>();
+    private Set<Slip> slips = new HashSet<>();
 
     @NotNull
     private boolean active;

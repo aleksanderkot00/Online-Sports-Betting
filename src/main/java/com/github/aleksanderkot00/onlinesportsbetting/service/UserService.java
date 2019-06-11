@@ -34,16 +34,29 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
+    public User getUser(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
     public User editUser(long userId, UserDto userDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        if (userDto.getName() != "" && userDto.getName() != null) user.setName(userDto.getName());
-        if (userDto.getLastName() != "" && userDto.getLastName() != null) user.setLastName(userDto.getLastName());
-        if (userDto.getEmail() != "" && userDto.getEmail() != null) user.setEmail(userDto.getEmail());
-        if (userDto.getPassword() != "" && userDto.getPassword() != null) user.setEncryptedPassword(userDto.getPassword());
+
+        if (userDto.getName() != "" && userDto.getName() != null) {
+            user.setName(userDto.getName());
+        }
+        if (userDto.getLastName() != "" && userDto.getLastName() != null) {
+            user.setLastName(userDto.getLastName());
+        }
+        if (userDto.getEmail() != "" && userDto.getEmail() != null) {
+            user.setEmail(userDto.getEmail());
+        }
+        if (userDto.getPassword() != "" && userDto.getPassword() != null) {
+            user.setEncryptedPassword(userDto.getPassword());
+        }
 
         return userRepository.save(user);
     }
