@@ -1,6 +1,8 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
@@ -75,6 +77,16 @@ public class UserService implements UserDetailsService {
         }
 
         return userRepository.save(user);
+    }
+
+    public void orderCartSlip(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        Slip cartSlip = user.getCartSlip();
+        user.setBalance(user.getBalance().subtract(cartSlip.getStake()));
+        cartSlip.setState(SlipState.ORDERED);
+        user.getSlips().add(cartSlip);
+        user.setCartSlip(new Slip());
+        userRepository.save(user);
     }
 
     public void deleteUser(long userId) {

@@ -41,6 +41,7 @@ public class SlipService {
         Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
         Bet bet = betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
         slip.getBets().add(bet);
+        slip.refreshTotalOdds();
         return slipRepository.save(slip);
     }
 
@@ -48,6 +49,7 @@ public class SlipService {
         Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
         Bet bet = betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
         slip.getBets().remove(bet);
+        slip.refreshTotalOdds();
         return slipRepository.save(slip);
     }
 
