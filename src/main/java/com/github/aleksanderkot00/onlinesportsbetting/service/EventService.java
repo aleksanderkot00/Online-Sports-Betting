@@ -34,11 +34,11 @@ public class EventService {
 
     public Event editEvent(long eventId, EventDto eventDto) {
         Event event = eventRepository.findById(eventId).orElseThrow(EventNotFoundException::new);
-        event.setResult(BetResult.NOT_FINISHED);
         if (eventDto.getDateTime() != null) event.setDateTime(eventDto.getDateTime());
         if (eventDto.getTeamOneName() != "" && eventDto.getTeamOneName() != null) event.setTeamOneName(eventDto.getTeamOneName());
         if (eventDto.getTeamTwoName() != "" && eventDto.getTeamTwoName() != null) event.setTeamTwoName(eventDto.getTeamTwoName());
-        if (eventDto.getBetResult() != null) event.setResult(eventDto.getBetResult());
+        if (eventDto.getTeamOneScore() != null) event.setTeamOneName(eventDto.getTeamOneName());
+        if (eventDto.getTeamTwoScore() != null) event.setTeamTwoName(eventDto.getTeamTwoName());
 
         return eventRepository.save(event);
     }

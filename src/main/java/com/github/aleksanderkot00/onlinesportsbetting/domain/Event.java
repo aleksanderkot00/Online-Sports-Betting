@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -31,6 +32,6 @@ public class Event {
     @Size(min = 2, max = 35)
     private String teamTwoName;
 
-    private int teamOneScore;
-    private int teamTwoScore;
+    private BigDecimal teamOneScore;
+    private BigDecimal teamTwoScore;
 }
