@@ -5,6 +5,8 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @PostAuthorize("returnObject.email == authentication.name")
     @GetMapping("/{userId}")
     public User getUser(@PathVariable long userId){
         return userService.getUser(userId);
@@ -37,11 +40,13 @@ public class UserController {
         return userService.addUser(userMapper.mapToUser(userDto));
     }
 
+    @PostAuthorize("returnObject.email == authentication.name")
     @PutMapping("/{userId}")
     public User editUser(@PathVariable long userId, @RequestBody UserDto userDto) {
         return userService.editUser(userId, userDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable long userId) {
         userService.deleteUser(userId);

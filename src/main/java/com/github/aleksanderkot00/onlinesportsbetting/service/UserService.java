@@ -49,6 +49,9 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        user.getRoles().clear();
+        userRepository.save(user);
         userRepository.deleteById(userId);
     }
 
