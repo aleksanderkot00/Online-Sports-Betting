@@ -2,38 +2,33 @@ package com.github.aleksanderkot00.onlinesportsbetting.validator;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.NotValidCartBetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class CartSlipValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CartSlipValidator.class);
 
-    public void validateCartSlip(User user) {
+    public boolean validateCartSlip(User user) {
         Set<Bet> bets = user.getCartSlip().getBets();
-        boolean correct = validateUserBalance(user) &&
+        boolean correct =
+                validateUserBalance(user) &&
                 validateBetsActivity(bets) &&
                 validateUniqueOfEvents(bets) &&
                 isNotEmpty(bets);
-
-        if (!correct) {
-            throw new NotValidCartBetException();
-        }
+        return correct;
     }
 
     private boolean validateBetsActivity(Set<Bet> bets) {
-        Set<Bet> activeBets = bets.stream()
-                .filter(bet -> bet.isActive())
-                .collect(Collectors.toCollection(HashSet::new));
+        long activeBetsNumber = bets.stream()
+                .filter(Bet::isActive)
+                .count();
 
-        boolean hasActiveBet = activeBets.size() == bets.size() ;
+        boolean hasActiveBet = activeBetsNumber == bets.size() ;
 
         if (hasActiveBet) {
             LOGGER.info("Cart slip has only active events.");
@@ -44,11 +39,12 @@ public class CartSlipValidator {
     }
 
     private boolean validateUniqueOfEvents(Set<Bet> bets) {
-        Set<Long> betsIdSet = bets.stream()
-                .map(bet -> bet.getBetId())
-                .collect(Collectors.toCollection(HashSet::new));
+        long betsIdSet = bets.stream()
+                .map(bet -> bet.getEvent().getEventId())
+                .distinct()
+                .count();
 
-        boolean hasUniqueEvents = betsIdSet.size() == bets.size();
+        boolean hasUniqueEvents = betsIdSet == bets.size();
 
         if (hasUniqueEvents) {
             LOGGER.info("Cart slip has bets from different events.");

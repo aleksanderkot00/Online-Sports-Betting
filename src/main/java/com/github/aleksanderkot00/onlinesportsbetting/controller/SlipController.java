@@ -1,5 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
 import com.github.aleksanderkot00.onlinesportsbetting.facade.SlipOrderFacade;
@@ -7,6 +8,7 @@ import com.github.aleksanderkot00.onlinesportsbetting.mapper.SlipMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.SlipService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -52,7 +54,13 @@ public class SlipController {
     }
 
     @PutMapping()
-    public SlipDto orderCartSlip(Principal principal) {
-        return slipMapper.mapToSlipDto(slipOrderFacade.orderSlip(principal.getName()));
+    public ResponseEntity orderCartSlip(Principal principal) {
+        try {
+            Slip cartSlip = slipOrderFacade.orderSlip(principal.getName());
+            return ResponseEntity.accepted().body(slipMapper.mapToSlipDto(cartSlip));
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(emptySlip(principal));
+        }
     }
 }

@@ -25,12 +25,8 @@ public class SlipService {
         this.betRepository = betRepository;
     }
 
-    public List<Slip> getSlips() {
-        return slipRepository.findAll();
-    }
-
-    public Slip getSlip(long slipId) {
-        return slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
+    public List<Slip> getSlipsByState(SlipState state) {
+        return slipRepository.findAllByState(state);
     }
 
     public Slip save(Slip slip) {
@@ -56,10 +52,11 @@ public class SlipService {
     public Slip emptyCartSlip(long slipId) {
         Slip cartSlip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
         if (cartSlip.getState().equals(SlipState.UNORDERED)) {
-            cartSlip = new Slip();
+            cartSlip.getBets().clear();
+            cartSlip.refreshTotalOdds();
         } else {
             throw new SlipIsOrderedException();
         }
-        return cartSlip;
+        return slipRepository.save(cartSlip);
     }
 }

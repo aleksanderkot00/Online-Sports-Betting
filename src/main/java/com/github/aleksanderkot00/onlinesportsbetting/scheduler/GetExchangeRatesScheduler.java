@@ -21,7 +21,8 @@ public class GetExchangeRatesScheduler {
         this.mapper = mapper;
     }
 
-    @Scheduled(cron = "0 0 10 * * *")
+//    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(fixedDelay = 50000)
     public void saveRates() {
         service.save(mapper.mapToExchangeRates(client.getExchangeRates()));
     }

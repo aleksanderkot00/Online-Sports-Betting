@@ -1,8 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
@@ -63,30 +61,20 @@ public class UserService implements UserDetailsService {
     public User editUser(long userId, UserRegistrationDto userRegistrationDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if (userRegistrationDto.getName() != "" && userRegistrationDto.getName() != null) {
+        if (userRegistrationDto.getName().equals("") && userRegistrationDto.getName() != null) {
             user.setName(userRegistrationDto.getName());
         }
-        if (userRegistrationDto.getLastName() != "" && userRegistrationDto.getLastName() != null) {
+        if (userRegistrationDto.getLastName().equals("") && userRegistrationDto.getLastName() != null) {
             user.setLastName(userRegistrationDto.getLastName());
         }
-        if (userRegistrationDto.getEmail() != "" && userRegistrationDto.getEmail() != null) {
+        if (userRegistrationDto.getEmail().equals("") && userRegistrationDto.getEmail() != null) {
             user.setEmail(userRegistrationDto.getEmail());
         }
-        if (userRegistrationDto.getPassword() != "" && userRegistrationDto.getPassword() != null) {
+        if (userRegistrationDto.getPassword().equals("") && userRegistrationDto.getPassword() != null) {
             user.setEncryptedPassword(userRegistrationDto.getPassword());
         }
 
         return userRepository.save(user);
-    }
-
-    public void orderCartSlip(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-        Slip cartSlip = user.getCartSlip();
-        user.setBalance(user.getBalance().subtract(cartSlip.getStake()));
-        cartSlip.setState(SlipState.ORDERED);
-        user.getSlips().add(cartSlip);
-        user.setCartSlip(new Slip());
-        userRepository.save(user);
     }
 
     public void deleteUser(long userId) {
@@ -105,7 +93,6 @@ public class UserService implements UserDetailsService {
         }
          return new org.springframework.security.core.userdetails.User(
                  user.getEmail(), user.getEncryptedPassword(), user.isActive(),
-                 true, true, true, authorities
-         );
+                 true, true, true, authorities);
     }
 }
