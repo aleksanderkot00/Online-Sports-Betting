@@ -120,17 +120,17 @@ public class SlipTestSuite {
         Bet betOne = new Bet();
         betOne.setActive(true);
         betOne.setEvent(event);
-        betOne.setType(BetResult.ONE);
+        betOne.setType(BetType.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
         Bet betTwo = new Bet();
         betTwo.setActive(true);
         betTwo.setEvent(event);
-        betTwo.setType(BetResult.TWO);
+        betTwo.setType(BetType.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
         Bet betZero = new Bet();
         betZero.setActive(true);
         betZero.setEvent(event);
-        betZero.setType(BetResult.ZERO);
+        betZero.setType(BetType.ZERO);
         betZero.setOdds(new BigDecimal("2.11"));
 
         Slip slip = new Slip();

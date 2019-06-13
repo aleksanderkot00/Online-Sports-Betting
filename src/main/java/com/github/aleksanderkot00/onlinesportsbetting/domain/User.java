@@ -54,7 +54,7 @@ public class User {
     private Set<Slip> slips = new HashSet<>();
 
     @NotNull
-    private boolean active;
+    private boolean active = true;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(

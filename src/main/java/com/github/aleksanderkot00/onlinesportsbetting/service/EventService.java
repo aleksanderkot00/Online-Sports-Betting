@@ -1,7 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.BetResult;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.EventDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.EventNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.EventRepository;

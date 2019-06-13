@@ -25,6 +25,9 @@ public class Event {
     private LocalDateTime dateTime;
 
     @NotNull
+    private boolean finished = false;
+
+    @NotNull
     @Size(min = 2, max = 35)
     private String teamOneName;
 

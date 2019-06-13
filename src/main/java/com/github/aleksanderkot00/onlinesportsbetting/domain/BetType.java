@@ -1,7 +1,10 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain;
 
-public enum  BetResult {
-    WINNING,
-    LOST,
+public enum BetType {
+    ZERO,
+    ONE,
+    TWO,
+    ZERO_ONE,
+    ZERO_TWO,
     NOT_FINISHED
 }

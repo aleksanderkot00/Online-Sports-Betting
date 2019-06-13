@@ -3,7 +3,6 @@ package com.github.aleksanderkot00.onlinesportsbetting.service;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.RoleNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.RoleRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
@@ -53,9 +52,9 @@ public class UserService implements UserDetailsService {
         user.setEmail(userRegistrationDto.getEmail());
         user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
         user.setBalance(BigDecimal.ZERO);
-        user.getRoles().add(roleRepository.findByRole("USER").orElseThrow(RoleNotFoundException::new));
+        user.getRoles().add(roleRepository.findByRole("USER").orElse(new Role()));
 
-        return user;
+        return userRepository.save(user);
     }
 
     public User editUser(long userId, UserRegistrationDto userRegistrationDto) {

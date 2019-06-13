@@ -22,13 +22,16 @@ public class Bet {
     private Event event;
 
     @NotNull
-    private BetResult type;
+    private BetType type;
 
     @NotNull
     private BigDecimal odds;
 
     @NotNull
     private boolean active = true;
+
+    @NotNull
+    private BetResult result = BetResult.NOT_FINISHED;
 
     @Override
     public boolean equals(Object o) {

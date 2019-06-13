@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.BetResult;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.BetType;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class BetDto {
     private long betId;
     private long eventId;
-    private BetResult type;
+    private BetType type;
     private BigDecimal odds;
     private boolean isActive;
 }

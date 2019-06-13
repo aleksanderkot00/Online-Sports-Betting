@@ -34,10 +34,14 @@ public class UserController {
         return userMapper.mapToUserDtoList(userService.getUsers());
     }
 
-    @PostAuthorize("returnObject.email == authentication.name")
+    @PostAuthorize("returnObject.email.equals(authentication.name)")
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable long userId){
-        return userMapper.mapToUserDto(userService.getUser(userId));
+        UserDto userDto = userMapper.mapToUserDto(userService.getUser(userId));
+        userDto.setName("");
+        userDto.setLastName(null);
+        userDto.getRoles().add(" ");
+        return userDto;
     }
 
     @PostMapping
@@ -45,7 +49,7 @@ public class UserController {
         return userMapper.mapToUserDto(userService.addUser(userRegistrationDto));
     }
 
-    @PostAuthorize("returnObject.email == authentication.name")
+    @PostAuthorize("returnObject.email.equals(authentication.name)")
     @PatchMapping("/{userId}")
     public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto) {
         return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));

@@ -16,5 +16,5 @@ public class Role {
     @GeneratedValue
     private long roleId;
 
-    @NotNull private String role;
+    @NotNull private String role = "USER";
 }

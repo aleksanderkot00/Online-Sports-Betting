@@ -35,17 +35,17 @@ public class BetTestSuite {
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betOne = new Bet();
         betOne.setEvent(event);
-        betOne.setType(BetResult.ONE);
+        betOne.setType(BetType.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
 
         Bet betTwo = new Bet();
         betTwo.setEvent(event);
-        betTwo.setType(BetResult.TWO);
+        betTwo.setType(BetType.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
 
         Bet betZero = new Bet();
         betZero.setEvent(event);
-        betZero.setType(BetResult.TWO);
+        betZero.setType(BetType.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
 
         //When
@@ -70,7 +70,7 @@ public class BetTestSuite {
 
         Bet betZero = new Bet();
         betZero.setEvent(event);
-        betZero.setType(BetResult.TWO);
+        betZero.setType(BetType.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
@@ -90,7 +90,7 @@ public class BetTestSuite {
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betZero = new Bet();
         betZero.setEvent(event);
-        betZero.setType(BetResult.TWO);
+        betZero.setType(BetType.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
@@ -113,7 +113,7 @@ public class BetTestSuite {
         int initialNumberOfBets = betRepository.findAll().size();
         Bet betZero = new Bet();
         betZero.setEvent(event);
-        betZero.setType(BetResult.TWO);
+        betZero.setType(BetType.TWO);
         betZero.setOdds(new BigDecimal("3.41"));
         betRepository.save(betZero);
 
