@@ -2,6 +2,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.validator;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.NotValidCartSlipException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,14 +14,16 @@ public class CartSlipValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CartSlipValidator.class);
 
-    public boolean validateCartSlip(User user) {
+    public void validateCartSlip(User user) {
         Set<Bet> bets = user.getCartSlip().getBets();
         boolean correct =
                 validateUserBalance(user) &&
                 validateBetsActivity(bets) &&
                 validateUniqueOfEvents(bets) &&
                 isNotEmpty(bets);
-        return correct;
+        if (!correct) {
+            throw new NotValidCartSlipException();
+        }
     }
 
     private boolean validateBetsActivity(Set<Bet> bets) {

@@ -3,7 +3,6 @@ package com.github.aleksanderkot00.onlinesportsbetting.facade;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.NotValidCartSlipException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.validator.CartSlipValidator;
@@ -24,16 +23,14 @@ public class SlipOrderFacade {
 
     public Slip orderSlip(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-        if (validator.validateCartSlip(user)) {
-            Slip cartSlip = user.getCartSlip();
-            user.setBalance(user.getBalance().subtract(cartSlip.getStake()));
-            cartSlip.setState(SlipState.ORDERED);
-            user.getSlips().add(cartSlip);
-            user.setCartSlip(new Slip());
-            userRepository.save(user);
+        validator.validateCartSlip(user);
+        Slip cartSlip = user.getCartSlip();
+        user.setBalance(user.getBalance().subtract(cartSlip.getStake()));
+        cartSlip.setState(SlipState.ORDERED);
+        user.getSlips().add(cartSlip);
+        user.setCartSlip(new Slip());
+        userRepository.save(user);
 
-            return cartSlip;
-        }
-        throw new NotValidCartSlipException();
+        return cartSlip;
     }
 }
