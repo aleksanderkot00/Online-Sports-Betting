@@ -5,6 +5,9 @@ import com.github.aleksanderkot00.onlinesportsbetting.repository.ExchangeRatesRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @Service
 public class ExchangeRatesService {
 

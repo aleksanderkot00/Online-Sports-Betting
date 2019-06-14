@@ -7,9 +7,12 @@ import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundExce
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.validator.CartSlipValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+import javax.transaction.Transactional;
+
+@Transactional
+@Service
 public class SlipOrderFacade {
 
     private final CartSlipValidator validator;
