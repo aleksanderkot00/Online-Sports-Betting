@@ -34,6 +34,10 @@ public class Slip {
     @NotNull
     private BigDecimal totalOdds = BigDecimal.ONE;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
     public void refreshTotalOdds() {
         BigDecimal odds = BigDecimal.ONE;
         for (Bet bet: bets) {

@@ -45,11 +45,10 @@ public class User {
     @JoinColumn(name="CART_SLIP_ID")
     private Slip cartSlip = new Slip();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "USERS_SLIPS",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SLIP_ID")
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private Set<Slip> slips = new HashSet<>();
 
@@ -63,4 +62,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     private Set<Role> roles = new HashSet<>();
+
+    public void addToBalance(BigDecimal value) {
+        balance = balance.add(value);
+    }
 }

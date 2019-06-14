@@ -41,4 +41,10 @@ public class BetService {
     public void deleteBet(long betId) {
         betRepository.deleteById(betId);
     }
+
+    public Bet settleBet(long betId) {
+        Bet bet = betRepository.findById(betId).orElseThrow(BetNotFoundException::new);
+        bet.settle();
+        return betRepository.save(bet);
+    }
 }

@@ -3,7 +3,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.controller;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
-import com.github.aleksanderkot00.onlinesportsbetting.facade.SlipOrderFacade;
+import com.github.aleksanderkot00.onlinesportsbetting.facade.OrderSlipFacade;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.SlipMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.SlipService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
@@ -20,14 +20,14 @@ public class SlipController {
     private final SlipService slipService;
     private final UserService userService;
     private final SlipMapper slipMapper;
-    private final SlipOrderFacade slipOrderFacade;
+    private final OrderSlipFacade orderSlipFacade;
 
     @Autowired
-    public SlipController(SlipService slipService, UserService userService, SlipMapper slipMapper, SlipOrderFacade slipOrderFacade) {
+    public SlipController(SlipService slipService, UserService userService, SlipMapper slipMapper, OrderSlipFacade orderSlipFacade) {
         this.slipService = slipService;
         this.userService = userService;
         this.slipMapper = slipMapper;
-        this.slipOrderFacade = slipOrderFacade;
+        this.orderSlipFacade = orderSlipFacade;
     }
 
     @GetMapping
@@ -56,7 +56,7 @@ public class SlipController {
     @PutMapping()
     public ResponseEntity orderCartSlip(Principal principal) {
         try {
-            Slip cartSlip = slipOrderFacade.orderSlip(principal.getName());
+            Slip cartSlip = orderSlipFacade.orderSlip(principal.getName());
             return ResponseEntity.accepted().body(slipMapper.mapToSlipDto(cartSlip));
         }
         catch (RuntimeException e) {

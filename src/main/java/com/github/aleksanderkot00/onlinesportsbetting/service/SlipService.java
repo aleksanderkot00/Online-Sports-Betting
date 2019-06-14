@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.BetResult;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
@@ -60,5 +61,20 @@ public class SlipService {
             throw new SlipIsOrderedException();
         }
         return slipRepository.save(cartSlip);
+    }
+
+    public Slip settleSlip(long slipId) {
+        Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
+        long lostBetsNumber = slip.getBets().stream()
+                .filter(bet -> bet.getResult().equals(BetResult.LOST)).count();
+        long notFinishedBetsNumber = slip.getBets().stream()
+                .filter(bet -> bet.getResult().equals(BetResult.NOT_FINISHED)).count();
+        if (lostBetsNumber > 0) {
+            slip.setState(SlipState.SETTLED);
+        } else if (notFinishedBetsNumber == 0) {
+            slip.getUser().addToBalance(slip.getStake());
+            slip.setState(SlipState.SETTLED);
+        }
+        return slipRepository.save(slip);
     }
 }

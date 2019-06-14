@@ -48,4 +48,26 @@ public class Bet {
     public int hashCode() {
         return Objects.hash(betId, type, odds, active);
     }
+
+    public void settle() {
+        if (event.isFinished()) {
+            switch (type) {
+                case ONE:
+                    result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) > 0) ? BetResult.WINNING : BetResult.LOST;
+                    break;
+                case TWO:
+                    result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) < 0) ? BetResult.WINNING : BetResult.LOST;
+                    break;
+                case ZERO:
+                    result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) == 0) ? BetResult.WINNING : BetResult.LOST;
+                    break;
+                case ZERO_ONE:
+                    result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) >= 0) ? BetResult.WINNING : BetResult.LOST;
+                    break;
+                case ZERO_TWO:
+                    result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) <= 0) ? BetResult.WINNING : BetResult.LOST;
+                    break;
+            }
+        }
+    }
 }

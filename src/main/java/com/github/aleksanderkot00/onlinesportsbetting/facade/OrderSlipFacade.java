@@ -13,13 +13,13 @@ import javax.transaction.Transactional;
 
 @Transactional
 @Service
-public class SlipOrderFacade {
+public class OrderSlipFacade {
 
     private final CartSlipValidator validator;
     private final UserRepository userRepository;
 
     @Autowired
-    public SlipOrderFacade(CartSlipValidator validator, UserRepository userRepository) {
+    public OrderSlipFacade(CartSlipValidator validator, UserRepository userRepository) {
         this.validator = validator;
         this.userRepository = userRepository;
     }
