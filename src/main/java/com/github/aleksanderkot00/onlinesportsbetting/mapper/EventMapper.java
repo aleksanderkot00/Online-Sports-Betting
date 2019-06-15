@@ -24,7 +24,9 @@ public class EventMapper {
     public EventDto mapToEventDto(Event event) {
         EventDto eventDto = new EventDto();
         eventDto.setEventId(event.getEventId());
-        eventDto.setCategoryName(event.getCategory().getName());
+        if (event.getCategory() != null) {
+            eventDto.setCategoryName(event.getCategory().getName());
+        }
         eventDto.setDateTime(event.getDateTime());
         eventDto.setTeamOneName(event.getTeamOneName());
         eventDto.setTeamTwoName(event.getTeamTwoName());

@@ -1,14 +1,12 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.BetResult;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipIsOrderedException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +61,7 @@ public class SlipService {
         return slipRepository.save(cartSlip);
     }
 
-    public Slip settleSlip(long slipId) {
+    public void settleSlip(long slipId) {
         Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
         long lostBetsNumber = slip.getBets().stream()
                 .filter(bet -> bet.getResult().equals(BetResult.LOST)).count();
@@ -72,9 +70,10 @@ public class SlipService {
         if (lostBetsNumber > 0) {
             slip.setState(SlipState.SETTLED);
         } else if (notFinishedBetsNumber == 0) {
-            slip.getUser().addToBalance(slip.getStake());
+            User user = slip.getUser();
+            user.addToBalance(slip.getStake().multiply(slip.getTotalOdds()));
             slip.setState(SlipState.SETTLED);
         }
-        return slipRepository.save(slip);
+        slipRepository.save(slip);
     }
 }

@@ -23,7 +23,7 @@ public class SettleSlipsFacade {
         this.slipService = slipService;
     }
 
-    public void SettleSlips() {
+    public void settleSlips() {
         List<Slip> orderedSlips = slipService.getSlipsByState(SlipState.ORDERED);
 
         for (Slip slip : orderedSlips) {

@@ -61,9 +61,9 @@ public class CartSlipValidator {
         boolean isNotEmpty = bets.size() > 0;
 
         if (isNotEmpty) {
-            LOGGER.info("Cart slip has bets from different events.");
+            LOGGER.info("Cart slip is not empty.");
         } else {
-            LOGGER.warn("Cart slip has bets from the same events!");
+            LOGGER.warn("Cart slip is empty!");
         }
         return isNotEmpty;
     }

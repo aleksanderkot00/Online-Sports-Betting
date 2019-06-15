@@ -5,6 +5,5 @@ public enum BetType {
     ONE,
     TWO,
     ZERO_ONE,
-    ZERO_TWO,
-    NOT_FINISHED
+    ZERO_TWO
 }
