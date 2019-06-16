@@ -1,7 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
 import com.github.aleksanderkot00.onlinesportsbetting.facade.OrderSlipFacade;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.SlipMapper;
@@ -11,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/slips")
+@RequestMapping("/users")
 public class SlipController {
 
     private final SlipService slipService;
@@ -30,37 +29,29 @@ public class SlipController {
         this.orderSlipFacade = orderSlipFacade;
     }
 
-    @GetMapping
-    public SlipDto getSlip(Principal principal) {
-        return slipMapper.mapToSlipDto(userService.getUser(principal.getName()).getCartSlip());
+    @GetMapping("/{userId}/slips")
+    public Set<SlipDto> getSlip(@PathVariable long userId) {
+        return slipMapper.mapToSlipDtoSet(userService.getUser(userId).getSlips());
     }
 
-    @DeleteMapping
-    public SlipDto emptySlip(Principal principal) {
-        User user = userService.getUser(principal.getName());
-        return slipMapper.mapToSlipDto(slipService.emptyCartSlip(user.getCartSlip().getSlipId()));
+    @DeleteMapping("/{userId}/cart")
+    public SlipDto emptySlip(@PathVariable long userId) {
+        return slipMapper.mapToSlipDto(slipService.emptyCartSlip(userService.getUser(userId).getCartSlip().getSlipId()));
     }
 
-    @PatchMapping("/bets/{betId}")
-    public SlipDto addBetToSlip(@PathVariable long betId, Principal principal) {
-        User user = userService.getUser(principal.getName());
-        return slipMapper.mapToSlipDto(slipService.addBetToSlip(user.getCartSlip().getSlipId(), betId));
+    @PutMapping("/{userId}/cart/bets/{betId}")
+    public SlipDto addBetToSlip(@PathVariable long userId, @PathVariable long betId) {
+        return slipMapper.mapToSlipDto(slipService.addBetToSlip(userService.getUser(userId).getCartSlip().getSlipId(), betId));
     }
 
-    @DeleteMapping("/bets/{betId}")
-    public SlipDto removeBetFromSlip(@PathVariable long betId, Principal principal) {
-        User user = userService.getUser(principal.getName());
-        return slipMapper.mapToSlipDto(slipService.removeBetFromSlip(user.getCartSlip().getSlipId(), betId));
+    @DeleteMapping("/{userId}/cart/bets/{betId}")
+    public SlipDto removeBetFromSlip(@PathVariable long userId, @PathVariable long betId) {
+        return slipMapper.mapToSlipDto(slipService.removeBetFromSlip(userService.getUser(userId).getCartSlip().getSlipId(), betId));
     }
 
-    @PutMapping()
-    public ResponseEntity orderCartSlip(Principal principal) {
-        try {
-            Slip cartSlip = orderSlipFacade.orderSlip(principal.getName());
+    @PutMapping("/{userId}/cart")
+    public ResponseEntity orderCartSlip(@PathVariable long userId) {
+            Slip cartSlip = orderSlipFacade.orderSlip(userId);
             return ResponseEntity.accepted().body(slipMapper.mapToSlipDto(cartSlip));
-        }
-        catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(emptySlip(principal));
-        }
     }
 }

@@ -4,16 +4,12 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDetailsDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.NotAuthorizeRequestException;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +33,6 @@ public class UserController {
         return userMapper.mapToUserDtoList(userService.getUsers());
     }
 
-    @PostAuthorize("returnObject.email.equals(authentication.name)")
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable long userId){
         return userMapper.mapToUserDto(userService.getUser(userId));
@@ -49,23 +44,18 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto, Principal principal) {
-        if (userId != userService.getUser(principal.getName()).getUserId()) {
-            throw new NotAuthorizeRequestException();
-        } else {
+    public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto) {
             return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
-        }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable long userId) {
         userService.deleteUser(userId);
     }
 
-    @GetMapping("/balance")
-    public BalanceDto getBalance(Principal principal){
-        return balanceService.getUserBalance(principal.getName());
+    @GetMapping("/{userId}/balance")
+    public BalanceDto getBalance(@PathVariable long userId){
+        return balanceService.getUserBalance(userId);
     }
 
     @GetMapping("/details")

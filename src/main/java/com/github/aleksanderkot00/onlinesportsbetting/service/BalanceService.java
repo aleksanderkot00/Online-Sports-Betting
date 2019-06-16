@@ -21,8 +21,8 @@ public class BalanceService {
         this.userService = userService;
     }
 
-    public BalanceDto getUserBalance(String email) {
-        User user = userService.getUser(email);
+    public BalanceDto getUserBalance(long userId) {
+        User user = userService.getUser(userId);
         BigDecimal plnBalance = user.getBalance();
         try {
             ExchangeRates rates = ratesService.getLastRates();

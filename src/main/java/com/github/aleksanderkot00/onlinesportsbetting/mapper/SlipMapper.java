@@ -25,4 +25,10 @@ public class SlipMapper {
                 .collect(Collectors.toSet());
         return new SlipDto(betsDto, slip.getStake(), slip.getState(), slip.getTotalOdds());
     }
+
+    public Set<SlipDto> mapToSlipDtoSet(Set<Slip> slips) {
+        return slips.stream()
+                .map(this::mapToSlipDto)
+                .collect(Collectors.toSet());
+    }
 }

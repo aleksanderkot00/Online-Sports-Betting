@@ -44,10 +44,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
-    public User getUser(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-    }
-
     public User addUser(UserRegistrationDto userRegistrationDto) {
         User user = User.builder()
                 .name(userRegistrationDto.getName())
