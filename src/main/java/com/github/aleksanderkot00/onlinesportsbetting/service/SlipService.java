@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -72,29 +71,12 @@ public class SlipService {
         long notFinishedBetsNumber = slip.getBets().stream()
                 .filter(bet -> bet.getResult().equals(BetResult.NOT_FINISHED)).count();
         if (lostBetsNumber > 0) {
-            slip.setState(SlipState.SETTLED);
+            slip.setState(SlipState.LOST);
 
-            slipSettleDetailsRepository.save(
-                    SlipSettleDetails.builder()
-                    .settleDateTime(LocalDateTime.now())
-                    .slip(slip)
-                    .stoke(slip.getStake())
-                    .winning(false)
-                    .build()
-            );
         } else if (notFinishedBetsNumber == 0) {
             User user = slip.getUser();
             user.addToBalance(slip.getStake().multiply(slip.getTotalOdds()));
-            slip.setState(SlipState.SETTLED);
-
-            slipSettleDetailsRepository.save(
-                    SlipSettleDetails.builder()
-                            .settleDateTime(LocalDateTime.now())
-                            .slip(slip)
-                            .stoke(slip.getStake())
-                            .winning(true)
-                            .build()
-            );
+            slip.setState(SlipState.WINNING);
         }
         slipRepository.save(slip);
     }

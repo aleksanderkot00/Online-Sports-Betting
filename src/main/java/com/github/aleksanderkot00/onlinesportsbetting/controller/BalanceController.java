@@ -2,15 +2,14 @@ package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ValueDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class BalanceController {
 
     private final BalanceService balanceService;
@@ -28,7 +27,7 @@ public class BalanceController {
     }
 
     @PatchMapping("/{userId}/payment")
-    public UserDto getBalance(@PathVariable long userId, @RequestBody BigDecimal value){
-        return userMapper.mapToUserDto(balanceService.payment(userId, value));
+    public UserDto getBalance(@PathVariable long userId, @RequestBody ValueDto value){
+        return userMapper.mapToUserDto(balanceService.payment(userId, value.getValue()));
     }
 }

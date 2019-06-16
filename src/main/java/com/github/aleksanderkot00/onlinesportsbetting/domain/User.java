@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 @Entity(name = "USERS")
 public class User {
 

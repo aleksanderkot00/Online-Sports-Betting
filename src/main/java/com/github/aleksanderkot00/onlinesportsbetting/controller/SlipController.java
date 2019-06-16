@@ -39,7 +39,7 @@ public class SlipController {
         return slipMapper.mapToSlipDto(slipService.emptyCartSlip(userService.getUser(userId).getCartSlip().getSlipId()));
     }
 
-    @PutMapping("/{userId}/cart/bets/{betId}")
+    @PatchMapping("/{userId}/cart/bets/{betId}")
     public SlipDto addBetToSlip(@PathVariable long userId, @PathVariable long betId) {
         return slipMapper.mapToSlipDto(slipService.addBetToSlip(userService.getUser(userId).getCartSlip().getSlipId(), betId));
     }

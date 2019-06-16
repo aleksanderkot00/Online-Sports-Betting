@@ -15,7 +15,7 @@ public class SettleSlipScheduler {
         this.settleSlipsFacade = settleSlipsFacade;
     }
 
-    @Scheduled(cron = "0 0 */2 * * *")
+    @Scheduled(cron = "0 32 * * * *")
     public void settleSlips() {
         settleSlipsFacade.settleSlips();
     }
