@@ -1,16 +1,18 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.details.SlipSettleDetails;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipIsOrderedException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipSettleDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -19,11 +21,13 @@ public class SlipService {
 
     private final SlipRepository slipRepository;
     private final BetRepository betRepository;
+    private final SlipSettleDetailsRepository slipSettleDetailsRepository;
 
     @Autowired
-    public SlipService(SlipRepository slipRepository, BetRepository betRepository) {
+    public SlipService(SlipRepository slipRepository, BetRepository betRepository, SlipSettleDetailsRepository slipSettleDetailsRepository) {
         this.slipRepository = slipRepository;
         this.betRepository = betRepository;
+        this.slipSettleDetailsRepository = slipSettleDetailsRepository;
     }
 
     public List<Slip> getSlipsByState(SlipState state) {
@@ -69,10 +73,28 @@ public class SlipService {
                 .filter(bet -> bet.getResult().equals(BetResult.NOT_FINISHED)).count();
         if (lostBetsNumber > 0) {
             slip.setState(SlipState.SETTLED);
+
+            slipSettleDetailsRepository.save(
+                    SlipSettleDetails.builder()
+                    .settleDateTime(LocalDateTime.now())
+                    .slip(slip)
+                    .stoke(slip.getStake())
+                    .winning(false)
+                    .build()
+            );
         } else if (notFinishedBetsNumber == 0) {
             User user = slip.getUser();
             user.addToBalance(slip.getStake().multiply(slip.getTotalOdds()));
             slip.setState(SlipState.SETTLED);
+
+            slipSettleDetailsRepository.save(
+                    SlipSettleDetails.builder()
+                            .settleDateTime(LocalDateTime.now())
+                            .slip(slip)
+                            .stoke(slip.getStake())
+                            .winning(true)
+                            .build()
+            );
         }
         slipRepository.save(slip);
     }

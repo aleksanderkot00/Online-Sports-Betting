@@ -1,14 +1,19 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.details;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
 @Entity
 public class SlipSettleDetails {
 
