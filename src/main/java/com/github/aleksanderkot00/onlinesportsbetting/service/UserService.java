@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
@@ -48,14 +49,17 @@ public class UserService implements UserDetailsService {
     }
 
     public User addUser(UserRegistrationDto userRegistrationDto) {
-        User user = new User();
-        user.setName(userRegistrationDto.getName());
-        user.setLastName(userRegistrationDto.getLastName());
-        user.setEmail(userRegistrationDto.getEmail());
-        user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
-        user.setBalance(BigDecimal.ZERO);
+        User user = User.builder()
+                .name(userRegistrationDto.getName())
+                .lastName(userRegistrationDto.getLastName())
+                .email(userRegistrationDto.getEmail())
+                .active(true)
+                .cartSlip(new Slip())
+                .balance(BigDecimal.ZERO)
+                .encryptedPassword(encoder.encode(userRegistrationDto.getPassword()))
+                .role(roleRepository.findByRole("USER").orElse(new Role()))
+        .build();
         user.getCartSlip().setUser(user);
-        user.getRoles().add(roleRepository.findByRole("USER").orElse(new Role()));
 
         return userRepository.save(user);
     }
@@ -63,19 +67,18 @@ public class UserService implements UserDetailsService {
     public User editUser(long userId, UserRegistrationDto userRegistrationDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if (userRegistrationDto.getName().equals("") && userRegistrationDto.getName() != null) {
+        if (!userRegistrationDto.getName().equals("") && userRegistrationDto.getName() != null) {
             user.setName(userRegistrationDto.getName());
         }
-        if (userRegistrationDto.getLastName().equals("") && userRegistrationDto.getLastName() != null) {
+        if (!userRegistrationDto.getLastName().equals("") && userRegistrationDto.getLastName() != null) {
             user.setLastName(userRegistrationDto.getLastName());
         }
-        if (userRegistrationDto.getEmail().equals("") && userRegistrationDto.getEmail() != null) {
+        if (!userRegistrationDto.getEmail().equals("") && userRegistrationDto.getEmail() != null) {
             user.setEmail(userRegistrationDto.getEmail());
         }
-        if (userRegistrationDto.getPassword().equals("") && userRegistrationDto.getPassword() != null) {
-            user.setEncryptedPassword(userRegistrationDto.getPassword());
+        if (!userRegistrationDto.getPassword().equals("") && userRegistrationDto.getPassword() != null) {
+            user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
         }
-
         return userRepository.save(user);
     }
 

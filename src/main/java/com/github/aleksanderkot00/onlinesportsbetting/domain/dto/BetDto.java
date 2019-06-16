@@ -1,11 +1,13 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.BetType;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Builder
 public class BetDto {
     private long betId;
     private long eventId;

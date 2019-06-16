@@ -8,10 +8,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
 @Entity(name = "USERS")
 public class User {
 
@@ -43,17 +47,17 @@ public class User {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CART_SLIP_ID")
-    private Slip cartSlip = new Slip();
+    private Slip cartSlip;
 
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Slip> slips = new HashSet<>();
+    private Set<Slip> slips;
 
     @NotNull
-    private boolean active = true;
+    private boolean active;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -61,7 +65,8 @@ public class User {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
-    private Set<Role> roles = new HashSet<>();
+    @Singular
+    private Set<Role> roles;
 
     public void addToBalance(BigDecimal value) {
         balance = balance.add(value);

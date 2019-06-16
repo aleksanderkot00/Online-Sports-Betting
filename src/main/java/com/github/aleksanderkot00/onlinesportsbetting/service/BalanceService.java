@@ -26,14 +26,12 @@ public class BalanceService {
         User user = userService.getUser(email);
         ExchangeRates rates = ratesService.getLastRates();
         BigDecimal plnBalance = user.getBalance();
-        BalanceDto balanceDto = new BalanceDto();
-        balanceDto.setRateDate(rates.getDate());
-        balanceDto.setPlnBalance(plnBalance);
-        balanceDto.setEurBalance(plnBalance.multiply(rates.getEuroRate()));
-        balanceDto.setUsdBalance(plnBalance.multiply(rates.getDollarRate()));
-        balanceDto.setGbpBalance(plnBalance.multiply(rates.getPoundRate()));
-        System.out.println(plnBalance.multiply(rates.getPoundRate()));
-
-        return balanceDto;
+        return BalanceDto.builder()
+                .rateDate(rates.getDate())
+                .plnBalance(plnBalance)
+                .eurBalance(plnBalance.multiply(rates.getEuroRate()))
+                .gbpBalance(plnBalance.multiply(rates.getPoundRate()))
+                .usdBalance(plnBalance.multiply(rates.getDollarRate()))
+                .build();
     }
 }

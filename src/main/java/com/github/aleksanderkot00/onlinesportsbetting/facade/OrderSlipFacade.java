@@ -28,7 +28,7 @@ public class OrderSlipFacade {
         User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         validator.validateCartSlip(user);
         Slip cartSlip = user.getCartSlip();
-        user.setBalance(user.getBalance().subtract(cartSlip.getStake()));
+        user.addToBalance(cartSlip.getStake().negate());
         cartSlip.setState(SlipState.ORDERED);
         user.getSlips().add(cartSlip);
         user.setCartSlip(new Slip());

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -35,6 +36,8 @@ public class UserTestSuite {
         user1.setActive(true);
         Role role = new Role();
         role.setRole("USER");
+        user1.setRoles(new HashSet<>());
+        user1.setCartSlip(new Slip());
         user1.getRoles().add(role);
 
         User user2 = new User();
@@ -43,8 +46,10 @@ public class UserTestSuite {
         user2.setEmail("email2@test.com");
         user2.setBalance(new BigDecimal("100.99"));
         user2.setEncryptedPassword("Password123");
+        user2.setRoles(new HashSet<>());
         user2.setActive(true);
-        user1.getRoles().add(role);
+        user2.setCartSlip(new Slip());
+        user2.getRoles().add(role);
 
         //When
         userRepository.save(user1);

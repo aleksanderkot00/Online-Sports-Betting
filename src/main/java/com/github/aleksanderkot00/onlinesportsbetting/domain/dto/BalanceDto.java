@@ -1,11 +1,13 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Builder
 public class BalanceDto {
     private LocalDate rateDate;
     private BigDecimal plnBalance;

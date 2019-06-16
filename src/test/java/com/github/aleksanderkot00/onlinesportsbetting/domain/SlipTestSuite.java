@@ -34,6 +34,7 @@ public class SlipTestSuite {
         Slip slip1 = new Slip();
         slip1.setStake(new BigDecimal("132.12"));
         slip1.setTotalOdds(new BigDecimal("1.92"));
+
         Slip slip2 = new Slip();
         slip2.setStake(new BigDecimal("32.12"));
         slip2.setTotalOdds(new BigDecimal("3.45"));

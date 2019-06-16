@@ -37,11 +37,7 @@ public class UserController {
     @PostAuthorize("returnObject.email.equals(authentication.name)")
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable long userId){
-        UserDto userDto = userMapper.mapToUserDto(userService.getUser(userId));
-        userDto.setName("");
-        userDto.setLastName(null);
-        userDto.getRoles().add(" ");
-        return userDto;
+        return userMapper.mapToUserDto(userService.getUser(userId));
     }
 
     @PostMapping
@@ -49,10 +45,13 @@ public class UserController {
         return userMapper.mapToUserDto(userService.addUser(userRegistrationDto));
     }
 
-    @PostAuthorize("returnObject.email.equals(authentication.name)")
     @PatchMapping("/{userId}")
-    public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto) {
-        return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
+    public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto, Principal principal) {
+        if (userId != userService.getUser(principal.getName()).getUserId()) {
+            throw new RuntimeException();
+        } else {
+            return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

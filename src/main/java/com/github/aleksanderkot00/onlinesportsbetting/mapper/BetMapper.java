@@ -33,19 +33,18 @@ public class BetMapper {
     }
 
     public BetDto mapToBetDto(Bet bet) {
-        BetDto betDto = new BetDto();
-        betDto.setBetId(bet.getBetId());
-        betDto.setEventId(bet.getEvent().getEventId());
-        betDto.setType(bet.getType());
-        betDto.setOdds(bet.getOdds());
-        betDto.setActive(bet.isActive());
-
-        return betDto;
+        return BetDto.builder()
+                .betId(bet.getBetId())
+                .eventId(bet.getEvent().getEventId())
+                .isActive(bet.isActive())
+                .odds(bet.getOdds())
+                .type(bet.getType())
+                .build();
     }
 
     public List<BetDto> mapToBetDtoList(List<Bet> bets) {
         return bets.stream()
-                .map(bet -> mapToBetDto(bet))
+                .map(this::mapToBetDto)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

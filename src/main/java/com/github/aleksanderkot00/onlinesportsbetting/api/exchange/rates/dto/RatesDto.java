@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatesDto {
 

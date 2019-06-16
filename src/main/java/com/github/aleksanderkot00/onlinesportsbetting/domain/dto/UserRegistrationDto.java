@@ -1,8 +1,8 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class UserRegistrationDto {
     private String name;
     private String lastName;

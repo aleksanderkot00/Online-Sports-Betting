@@ -22,23 +22,24 @@ public class EventMapper {
     }
 
     public EventDto mapToEventDto(Event event) {
-        EventDto eventDto = new EventDto();
-        eventDto.setEventId(event.getEventId());
+        String categoryName = null;
         if (event.getCategory() != null) {
-            eventDto.setCategoryName(event.getCategory().getName());
+            categoryName = event.getCategory().getName();
         }
-        eventDto.setDateTime(event.getDateTime());
-        eventDto.setTeamOneName(event.getTeamOneName());
-        eventDto.setTeamTwoName(event.getTeamTwoName());
-        eventDto.setTeamOneScore(event.getTeamOneScore());
-        eventDto.setTeamTwoScore(event.getTeamTwoScore());
-
-        return eventDto;
+        return EventDto.builder()
+                .categoryName(categoryName)
+                .dateTime(event.getDateTime())
+                .eventId(event.getEventId())
+                .teamOneName(event.getTeamOneName())
+                .teamTwoName(event.getTeamTwoName())
+                .teamOneScore(event.getTeamOneScore())
+                .teamTwoScore(event.getTeamTwoScore())
+                .build();
     }
 
     public List<EventDto> mapToEventDtoList(List<Event> events) {
         return events.stream()
-                .map(event -> mapToEventDto(event))
+                .map(this::mapToEventDto)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }
