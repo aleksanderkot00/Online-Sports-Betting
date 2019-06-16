@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDetailsDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.NotAuthorizeRequestException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -64,5 +66,12 @@ public class UserController {
     @GetMapping("/balance")
     public BalanceDto getBalance(Principal principal){
         return balanceService.getUserBalance(principal.getName());
+    }
+
+    @GetMapping("/details")
+    public List<UserDetailsDto> getUsersDetails(){
+        return userService.getUsers().stream()
+                .map(UserDetailsDto::new)
+                .collect(Collectors.toList());
     }
 }
