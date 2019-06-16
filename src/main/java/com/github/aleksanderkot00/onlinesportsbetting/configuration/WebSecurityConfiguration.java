@@ -1,11 +1,10 @@
-package com.github.aleksanderkot00.onlinesportsbetting.config;
+package com.github.aleksanderkot00.onlinesportsbetting.configuration;
 
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @EnableGlobalMethodSecurity(prePostEnabled=true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
     @Autowired
-    public WebSecurityConfig(UserService userService) {
+    public WebSecurityConfiguration(UserService userService) {
         this.userService = userService;
     }
 
@@ -34,15 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
-                .antMatchers( "/","/home").permitAll()
-                .antMatchers( HttpMethod.GET,"/events/**", "/bets/**").permitAll()
-                .antMatchers( HttpMethod.POST,"/users").permitAll()
-                .antMatchers( "/users/*","/slips/**").hasRole("USER")
-                .anyRequest().hasRole("ADMIN")
-                .and()
-                .formLogin().permitAll()
-                .and()
-                .logout().permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .csrf().disable();
     }
