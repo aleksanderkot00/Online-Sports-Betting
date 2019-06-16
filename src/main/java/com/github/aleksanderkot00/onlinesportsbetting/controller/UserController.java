@@ -3,6 +3,7 @@ package com.github.aleksanderkot00.onlinesportsbetting.controller;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.NotAuthorizeRequestException;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
@@ -48,7 +49,7 @@ public class UserController {
     @PatchMapping("/{userId}")
     public UserDto editUser(@PathVariable long userId, @RequestBody UserRegistrationDto userRegistrationDto, Principal principal) {
         if (userId != userService.getUser(principal.getName()).getUserId()) {
-            throw new RuntimeException();
+            throw new NotAuthorizeRequestException();
         } else {
             return userMapper.mapToUserDto(userService.editUser(userId, userRegistrationDto));
         }

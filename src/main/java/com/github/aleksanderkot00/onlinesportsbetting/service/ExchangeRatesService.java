@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.ExchangeRates;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.ExchangeRatesNotAvailableException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.ExchangeRatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,6 @@ public class ExchangeRatesService {
     }
 
     public ExchangeRates getLastRates() {
-        return ratesRepository.getLastRates();
+        return ratesRepository.getLastRates().orElseThrow(ExchangeRatesNotAvailableException::new);
     }
 }

@@ -18,5 +18,5 @@ public interface ExchangeRatesRepository extends CrudRepository<ExchangeRates, L
     Optional<ExchangeRates> findById(Long id);
 
     @Query(nativeQuery = true)
-    ExchangeRates getLastRates();
+    Optional<ExchangeRates> getLastRates();
 }
