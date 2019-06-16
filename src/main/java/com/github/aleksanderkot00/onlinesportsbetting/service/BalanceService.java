@@ -4,6 +4,8 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.ExchangeRates;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.ExchangeRatesNotAvailableException;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +15,16 @@ import java.math.BigDecimal;
 public class BalanceService {
 
     private final ExchangeRatesService ratesService;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public BalanceService(ExchangeRatesService ratesService, UserService userService) {
+    public BalanceService(ExchangeRatesService ratesService, UserRepository userRepository) {
         this.ratesService = ratesService;
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     public BalanceDto getUserBalance(long userId) {
-        User user = userService.getUser(userId);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         BigDecimal plnBalance = user.getBalance();
         try {
             ExchangeRates rates = ratesService.getLastRates();
@@ -38,5 +40,11 @@ public class BalanceService {
                     .plnBalance(plnBalance)
                     .build();
         }
+    }
+
+    public User payment(long userId,BigDecimal value) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        user.addToBalance(value);
+        return userRepository.save(user);
     }
 }

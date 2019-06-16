@@ -1,11 +1,9 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDetailsDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistrationDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
-import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,11 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
-    private final BalanceService balanceService;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper, BalanceService balanceService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
-        this.balanceService = balanceService;
     }
 
     @GetMapping
@@ -51,11 +47,6 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable long userId) {
         userService.deleteUser(userId);
-    }
-
-    @GetMapping("/{userId}/balance")
-    public BalanceDto getBalance(@PathVariable long userId){
-        return balanceService.getUserBalance(userId);
     }
 
     @GetMapping("/details")

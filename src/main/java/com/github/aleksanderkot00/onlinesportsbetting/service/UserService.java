@@ -18,8 +18,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -88,10 +89,9 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Email not found!"));
-        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-        for(Role role: user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
-        }
+        Set<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
+                .collect(Collectors.toSet());
          return new org.springframework.security.core.userdetails.User(
                  user.getEmail(), user.getEncryptedPassword(), user.isActive(),
                  true, true, true, authorities);
