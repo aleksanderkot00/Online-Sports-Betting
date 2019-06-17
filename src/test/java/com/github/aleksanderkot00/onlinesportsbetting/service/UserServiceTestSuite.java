@@ -53,21 +53,16 @@ public class UserServiceTestSuite {
         user1.setEmail("email1@test.com");
         user1.setBalance(new BigDecimal("1231.11"));
         user1.setEncryptedPassword("Password23");
-        user1.setActive(true);
         Role role = new Role();
         role.setRole("USER");
-        user1.setRoles(new HashSet<>());
-        user1.setCartSlip(new Slip());
         user1.getRoles().add(role);
+
         User user2 = new User();
         user2.setName("Test Name2");
         user2.setLastName("Test Lastname2");
         user2.setEmail("email2@test.com");
         user2.setBalance(BigDecimal.ZERO);
         user2.setEncryptedPassword("Password123");
-        user2.setRoles(new HashSet<>());
-        user2.setActive(true);
-        user2.setCartSlip(new Slip());
         user2.getRoles().add(role);
 
         List<User> users = new ArrayList<>();

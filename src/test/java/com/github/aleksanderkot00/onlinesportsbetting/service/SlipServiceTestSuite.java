@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
 import org.junit.Before;
@@ -143,9 +144,14 @@ public class SlipServiceTestSuite {
     @Test
     public void testSettleSlip() {
         //When
-        Slip retrievedSlip = slipService.settleSlip(15);
+        Slip slip = getSlip();
+        Slip retrievedSlip = slipService.settleSlip(slip);
 
         //Then
         assertEquals(SlipState.LOST, retrievedSlip.getState());
+    }
+
+    private Slip getSlip() {
+        return slipRepository.findById(15l).orElseThrow(SlipNotFoundException::new);
     }
 }

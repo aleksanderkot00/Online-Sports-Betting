@@ -6,13 +6,11 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserRegistratio
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EnableAspectJAutoProxy
 @RestController
 @RequestMapping("/users")
 public class UserController {

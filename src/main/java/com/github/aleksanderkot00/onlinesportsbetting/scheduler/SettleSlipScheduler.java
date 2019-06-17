@@ -1,6 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.scheduler;
 
-import com.github.aleksanderkot00.onlinesportsbetting.facade.SettleSlipsFacade;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
+import com.github.aleksanderkot00.onlinesportsbetting.service.SlipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -8,15 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class SettleSlipScheduler {
 
-    private final SettleSlipsFacade settleSlipsFacade;
+    private final SlipService slipService;
 
     @Autowired
-    public SettleSlipScheduler(SettleSlipsFacade settleSlipsFacade) {
-        this.settleSlipsFacade = settleSlipsFacade;
+    public SettleSlipScheduler(SlipService slipService) {
+        this.slipService = slipService;
     }
 
-    @Scheduled(cron = "0 32 * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void settleSlips() {
-        settleSlipsFacade.settleSlips();
+        slipService.getSlipsByState(SlipState.ORDERED).forEach(slipService::settleSlip);
     }
 }

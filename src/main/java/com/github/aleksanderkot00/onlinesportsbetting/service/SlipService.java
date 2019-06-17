@@ -60,9 +60,10 @@ public class SlipService {
         return slipRepository.save(cartSlip);
     }
 
-    public Slip settleSlip(long slipId) {
-        Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
-        slip.getBets().forEach(Bet::settle);
+    public Slip settleSlip(Slip slip) {
+        slip.getBets().stream()
+                .filter(bet -> bet.getResult().equals(BetResult.NOT_FINISHED))
+                .forEach(Bet::settle);
         long lostBetsNumber = slip.getBets().stream()
                 .filter(bet -> bet.getResult().equals(BetResult.LOST)).count();
         long notFinishedBetsNumber = slip.getBets().stream()
