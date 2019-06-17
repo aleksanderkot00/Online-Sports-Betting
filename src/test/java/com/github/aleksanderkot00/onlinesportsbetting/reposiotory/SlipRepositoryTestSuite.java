@@ -1,5 +1,9 @@
-package com.github.aleksanderkot00.onlinesportsbetting.domain;
+package com.github.aleksanderkot00.onlinesportsbetting.reposiotory;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.BetType;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.EventRepository;
@@ -18,7 +22,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SlipTestSuite {
+public class SlipRepositoryTestSuite {
 
     @Autowired
     private SlipRepository slipRepository;

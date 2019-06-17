@@ -1,5 +1,8 @@
-package com.github.aleksanderkot00.onlinesportsbetting.domain;
+package com.github.aleksanderkot00.onlinesportsbetting.reposiotory;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Role;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Test;
@@ -17,7 +20,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserTestSuite {
+public class UserRepositoryTestSuite {
 
     @Autowired
     private UserRepository userRepository;

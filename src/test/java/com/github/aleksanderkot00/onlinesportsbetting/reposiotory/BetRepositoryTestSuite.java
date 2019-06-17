@@ -1,5 +1,8 @@
-package com.github.aleksanderkot00.onlinesportsbetting.domain;
+package com.github.aleksanderkot00.onlinesportsbetting.reposiotory;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.BetType;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.EventRepository;
@@ -18,7 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BetTestSuite {
+public class BetRepositoryTestSuite {
 
     @Autowired
     private BetRepository betRepository;

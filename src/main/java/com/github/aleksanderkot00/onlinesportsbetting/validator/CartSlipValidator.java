@@ -43,7 +43,7 @@ public class CartSlipValidator {
 
     private boolean validateUniqueOfEvents(Set<Bet> bets) {
         long betsIdSet = bets.stream()
-                .map(bet -> bet.getEvent().getEventId())
+                .map(bet -> bet.getEvent())
                 .distinct()
                 .count();
 
