@@ -46,16 +46,12 @@ public class UserService implements UserDetailsService {
     }
 
     public User addUser(UserRegistrationDto userRegistrationDto) {
-        User user = User.builder()
-                .name(userRegistrationDto.getName())
-                .lastName(userRegistrationDto.getLastName())
-                .email(userRegistrationDto.getEmail())
-                .active(true)
-                .cartSlip(new Slip())
-                .balance(BigDecimal.ZERO)
-                .encryptedPassword(encoder.encode(userRegistrationDto.getPassword()))
-                .role(roleRepository.findByRole("USER").orElse(new Role()))
-        .build();
+        User user = new User();
+        user.setName(userRegistrationDto.getName());
+                user.setLastName(userRegistrationDto.getLastName());
+        user.setEmail(userRegistrationDto.getEmail());
+        user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
+        user.getRoles().add(roleRepository.findByRole("USER").orElse(new Role()));
         user.getCartSlip().setUser(user);
 
         return userRepository.save(user);
@@ -64,16 +60,16 @@ public class UserService implements UserDetailsService {
     public User editUser(long userId, UserRegistrationDto userRegistrationDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if (!userRegistrationDto.getName().equals("") && userRegistrationDto.getName() != null) {
+        if (userRegistrationDto.getName() != null && !userRegistrationDto.getName().equals("")) {
             user.setName(userRegistrationDto.getName());
         }
-        if (!userRegistrationDto.getLastName().equals("") && userRegistrationDto.getLastName() != null) {
+        if (userRegistrationDto.getLastName() != null && !userRegistrationDto.getLastName().equals("")) {
             user.setLastName(userRegistrationDto.getLastName());
         }
-        if (!userRegistrationDto.getEmail().equals("") && userRegistrationDto.getEmail() != null) {
+        if (userRegistrationDto.getEmail() != null && !userRegistrationDto.getEmail().equals("")) {
             user.setEmail(userRegistrationDto.getEmail());
         }
-        if (!userRegistrationDto.getPassword().equals("") && userRegistrationDto.getPassword() != null) {
+        if (userRegistrationDto.getPassword() != null && !userRegistrationDto.getPassword().equals("")) {
             user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
         }
         return userRepository.save(user);

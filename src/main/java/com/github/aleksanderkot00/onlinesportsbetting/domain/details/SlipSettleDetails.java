@@ -26,7 +26,7 @@ public class SlipSettleDetails {
     private LocalDateTime settleDateTime;
 
     @NotNull
-    private BigDecimal stoke;
+    private BigDecimal stake;
 
     @NotNull
     private BigDecimal odds;

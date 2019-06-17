@@ -46,16 +46,19 @@ public class BetServiceTestSuit {
         event.setTeamOneScore(BigDecimal.ONE);
         event.setTeamTwoScore(BigDecimal.ZERO);
         event.setFinished(true);
+
         Bet betOne = new Bet();
         betOne.setActive(true);
         betOne.setEvent(event);
         betOne.setType(BetType.ONE);
         betOne.setOdds(new BigDecimal("1.91"));
+
         Bet betTwo = new Bet();
         betTwo.setActive(true);
         betTwo.setEvent(event);
         betTwo.setType(BetType.TWO);
         betTwo.setOdds(new BigDecimal("3.41"));
+
         List<Bet> bets = new ArrayList<>();
         bets.add(betOne);
         bets.add(betTwo);

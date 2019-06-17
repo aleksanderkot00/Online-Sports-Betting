@@ -18,14 +18,13 @@ public class CartSlipValidatorTestSuite {
         slip.setStake(new BigDecimal("132.12"));
         slip.setTotalOdds(new BigDecimal("1.92"));
 
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .cartSlip(slip)
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setCartSlip(slip);
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
+        slip.setUser(user);
 
         //When&Then
         try {
@@ -58,14 +57,13 @@ public class CartSlipValidatorTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
         slip.getBets().add(betOne);
 
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .cartSlip(slip)
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setCartSlip(slip);
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
+        slip.setUser(user);
 
         //When&Then
         try {
@@ -105,14 +103,13 @@ public class CartSlipValidatorTestSuite {
         betTwo.setOdds(new BigDecimal("2.42"));
         slip.getBets().add(betTwo);
 
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .cartSlip(slip)
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setCartSlip(slip);
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
+        slip.setUser(user);
 
         //When&Then
         try {
@@ -144,14 +141,13 @@ public class CartSlipValidatorTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
         slip.getBets().add(betOne);
 
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .cartSlip(slip)
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setCartSlip(slip);
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
+        slip.setUser(user);
 
         //When&Then
         try {
@@ -183,14 +179,13 @@ public class CartSlipValidatorTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
         slip.getBets().add(betOne);
 
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .cartSlip(slip)
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setCartSlip(slip);
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
+        slip.setUser(user);
 
         //When&Then
         try {

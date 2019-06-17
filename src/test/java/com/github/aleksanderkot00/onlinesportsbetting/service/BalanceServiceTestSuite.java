@@ -35,13 +35,11 @@ public class BalanceServiceTestSuite {
 
     @Before
     public void init() {
-        User user = User.builder()
-                .active(true)
-                .balance(new BigDecimal("2000"))
-                .email("mail@gmail.com")
-                .name("test name")
-                .lastName("testLastName")
-                .build();
+        User user = new  User();
+        user.setBalance(new BigDecimal("2000"));
+        user.setEmail("mail@gmail.com");
+        user.setName("test name");
+        user.setLastName("testLastName");
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
     }
 

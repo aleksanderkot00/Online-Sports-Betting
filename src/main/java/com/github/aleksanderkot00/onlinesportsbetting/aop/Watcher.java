@@ -55,7 +55,7 @@ public class Watcher {
                         .odds(cartSlip.getTotalOdds())
                         .orderDateTime(LocalDateTime.now())
                         .slip(cartSlip)
-                        .stoke(cartSlip.getStake())
+                        .stake(cartSlip.getStake())
                         .build()
         );
     }
@@ -71,7 +71,7 @@ public class Watcher {
                             .settleDateTime(LocalDateTime.now())
                             .odds(slip.getTotalOdds())
                             .slip(slip)
-                            .stoke(slip.getStake())
+                            .stake(slip.getStake())
                             .winning(false)
                             .build()
             );
@@ -82,7 +82,7 @@ public class Watcher {
                             .settleDateTime(LocalDateTime.now())
                             .odds(slip.getTotalOdds())
                             .slip(slip)
-                            .stoke(slip.getStake())
+                            .stake(slip.getStake())
                             .winning(true)
                             .build()
             );

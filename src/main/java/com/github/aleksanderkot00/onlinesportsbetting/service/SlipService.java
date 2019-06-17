@@ -6,7 +6,6 @@ import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipIsOrderedExc
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipSettleDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +60,9 @@ public class SlipService {
         return slipRepository.save(cartSlip);
     }
 
-    public void settleSlip(long slipId) {
+    public Slip settleSlip(long slipId) {
         Slip slip = slipRepository.findById(slipId).orElseThrow(SlipNotFoundException::new);
+        slip.getBets().forEach(Bet::settle);
         long lostBetsNumber = slip.getBets().stream()
                 .filter(bet -> bet.getResult().equals(BetResult.LOST)).count();
         long notFinishedBetsNumber = slip.getBets().stream()
@@ -75,6 +75,6 @@ public class SlipService {
             user.addToBalance(slip.getStake().multiply(slip.getTotalOdds()));
             slip.setState(SlipState.WINNING);
         }
-        slipRepository.save(slip);
+        return slipRepository.save(slip);
     }
 }

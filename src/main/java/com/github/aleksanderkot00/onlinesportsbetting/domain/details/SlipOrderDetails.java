@@ -26,7 +26,7 @@ public class SlipOrderDetails {
     private LocalDateTime orderDateTime;
 
     @NotNull
-    private BigDecimal stoke;
+    private BigDecimal stake;
 
     @NotNull
     private BigDecimal odds;

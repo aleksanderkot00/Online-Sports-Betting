@@ -38,10 +38,10 @@ public class EventService {
         if (eventDto.getDateTime() != null) {
             event.setDateTime(eventDto.getDateTime());
         }
-        if (!eventDto.getTeamOneName().equals("") && eventDto.getTeamOneName() != null) {
+        if (eventDto.getTeamOneName() != null && !eventDto.getTeamOneName().equals("")) {
             event.setTeamOneName(eventDto.getTeamOneName());
         }
-        if (!eventDto.getTeamTwoName().equals("") && eventDto.getTeamTwoName() != null) {
+        if (eventDto.getTeamTwoName() != null && !eventDto.getTeamTwoName().equals("")) {
             event.setTeamTwoName(eventDto.getTeamTwoName());
         }
         if (eventDto.getTeamOneScore() != null){

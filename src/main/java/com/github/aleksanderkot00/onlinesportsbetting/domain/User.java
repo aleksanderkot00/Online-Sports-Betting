@@ -8,13 +8,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
+@Data
 @Entity(name = "USERS")
 public class User {
 
@@ -24,7 +21,7 @@ public class User {
     private long userId;
 
     @NotNull
-    @Size
+    @Size(min = 2, max = 15)
     private String name;
 
     @NotNull
@@ -38,7 +35,7 @@ public class User {
 
     @Column(precision = 9, scale = 2)
     @Min(value = 0)
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @NotNull
     private String encryptedPassword;
@@ -46,17 +43,17 @@ public class User {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CART_SLIP_ID")
-    private Slip cartSlip;
+    private Slip cartSlip = new Slip();
 
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Slip> slips;
+    private Set<Slip> slips = new HashSet<>();
 
     @NotNull
-    private boolean active;
+    private boolean active = true;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -64,8 +61,7 @@ public class User {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
-    @Singular
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public void addToBalance(BigDecimal value) {
         balance = balance.add(value);
