@@ -29,6 +29,9 @@ public class SlipSettleDetails {
     private BigDecimal stoke;
 
     @NotNull
+    private BigDecimal odds;
+
+    @NotNull
     private boolean winning;
 
     @NotNull

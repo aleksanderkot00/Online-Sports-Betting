@@ -1,6 +1,5 @@
 package com.github.aleksanderkot00.onlinesportsbetting.aop;
 
-
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.details.LoginTryDateTime;
@@ -47,7 +46,7 @@ public class Watcher {
     }
 
     @AfterReturning(pointcut = "execution(* com.github.aleksanderkot00.onlinesportsbetting.facade.OrderSlipFacade.orderSlip(..))",
-            returning= "retVal")
+            returning = "retVal")
     public void saveSlipOrderDetails(Object retVal) {
         Slip cartSlip = (Slip) retVal;
         LOGGER.info(cartSlip.getUser().getEmail() + " has ordered a slip.");
@@ -70,20 +69,22 @@ public class Watcher {
             slipSettleDetailsRepository.save(
                     SlipSettleDetails.builder()
                             .settleDateTime(LocalDateTime.now())
+                            .odds(slip.getTotalOdds())
                             .slip(slip)
                             .stoke(slip.getStake())
                             .winning(false)
                             .build()
             );
             LOGGER.info("Slip " + slip.getSlipId() + " has lost.");
-        } else if (slip.getState().equals(SlipState.WINNING)){
+        } else if (slip.getState().equals(SlipState.WINNING)) {
             slipSettleDetailsRepository.save(
                     SlipSettleDetails.builder()
-                    .settleDateTime(LocalDateTime.now())
-                    .slip(slip)
-                    .stoke(slip.getStake())
-                    .winning(true)
-                    .build()
+                            .settleDateTime(LocalDateTime.now())
+                            .odds(slip.getTotalOdds())
+                            .slip(slip)
+                            .stoke(slip.getStake())
+                            .winning(true)
+                            .build()
             );
             LOGGER.info("Slip " + slip.getSlipId() + " has won.");
         }
