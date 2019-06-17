@@ -51,6 +51,7 @@ public class Bet {
 
     public void settle() {
         if (event.isFinished()) {
+            active = false;
             switch (type) {
                 case ONE:
                     result = (event.getTeamOneScore().compareTo(event.getTeamTwoScore()) > 0) ? BetResult.WINNING : BetResult.LOST;

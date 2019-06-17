@@ -98,6 +98,7 @@ public class UserRepositoryTestSuite {
         user.setBalance(new BigDecimal("1231.11"));
         user.setEncryptedPassword("Password123");
         user.setActive(true);
+        user.setCartSlip(new Slip());
         userRepository.save(user);
 
         //When
@@ -122,6 +123,7 @@ public class UserRepositoryTestSuite {
         user.setBalance(new BigDecimal("1231.11"));
         user.setEncryptedPassword("Password123");
         user.setActive(true);
+        user.setCartSlip(new Slip());
         userRepository.save(user);
 
         //When

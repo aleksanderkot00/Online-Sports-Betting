@@ -1,7 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.details.SlipSettleDetails;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipIsOrderedException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
@@ -20,13 +19,11 @@ public class SlipService {
 
     private final SlipRepository slipRepository;
     private final BetRepository betRepository;
-    private final SlipSettleDetailsRepository slipSettleDetailsRepository;
 
     @Autowired
-    public SlipService(SlipRepository slipRepository, BetRepository betRepository, SlipSettleDetailsRepository slipSettleDetailsRepository) {
+    public SlipService(SlipRepository slipRepository, BetRepository betRepository) {
         this.slipRepository = slipRepository;
         this.betRepository = betRepository;
-        this.slipSettleDetailsRepository = slipSettleDetailsRepository;
     }
 
     public List<Slip> getSlipsByState(SlipState state) {

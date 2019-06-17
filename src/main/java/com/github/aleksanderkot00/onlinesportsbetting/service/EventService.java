@@ -35,11 +35,21 @@ public class EventService {
 
     public Event editEvent(long eventId, EventDto eventDto) {
         Event event = eventRepository.findById(eventId).orElseThrow(EventNotFoundException::new);
-        if (eventDto.getDateTime() != null) event.setDateTime(eventDto.getDateTime());
-        if (eventDto.getTeamOneName() != "" && eventDto.getTeamOneName() != null) event.setTeamOneName(eventDto.getTeamOneName());
-        if (eventDto.getTeamTwoName() != "" && eventDto.getTeamTwoName() != null) event.setTeamTwoName(eventDto.getTeamTwoName());
-        if (eventDto.getTeamOneScore() != null) event.setTeamOneName(eventDto.getTeamOneName());
-        if (eventDto.getTeamTwoScore() != null) event.setTeamTwoName(eventDto.getTeamTwoName());
+        if (eventDto.getDateTime() != null) {
+            event.setDateTime(eventDto.getDateTime());
+        }
+        if (!eventDto.getTeamOneName().equals("") && eventDto.getTeamOneName() != null) {
+            event.setTeamOneName(eventDto.getTeamOneName());
+        }
+        if (!eventDto.getTeamTwoName().equals("") && eventDto.getTeamTwoName() != null) {
+            event.setTeamTwoName(eventDto.getTeamTwoName());
+        }
+        if (eventDto.getTeamOneScore() != null){
+            event.setTeamOneScore(eventDto.getTeamOneScore());
+        }
+        if (eventDto.getTeamTwoScore() != null) {
+            event.setTeamTwoScore(eventDto.getTeamTwoScore());
+        }
 
         return eventRepository.save(event);
     }
