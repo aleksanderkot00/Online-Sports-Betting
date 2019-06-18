@@ -93,8 +93,8 @@ public class CategoryServiceTestSuite {
         Category retrievedCategory = categoryService.addCategory(category);
 
         //Then
-        assertEquals("NAME", category.getName());
-        assertEquals(0, category.getEvents().size());
+        assertEquals("NAME", retrievedCategory.getName());
+        assertEquals(0, retrievedCategory.getEvents().size());
     }
 
     @Test

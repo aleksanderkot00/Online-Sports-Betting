@@ -64,7 +64,6 @@ public class FootballApiClientTestSuite {
         //Given
         URI url = new URI("http://test.com?action=get_events&APIkey=mytestkey&league_id=14&from="
                 + LocalDate.now().minusDays(7) + "&to=" + LocalDate.now());
-
         FootballMatchDto[] matches = new FootballMatchDto[0];
 
         when(restTemplate.getForObject(url, FootballMatchDto[].class)).thenReturn(matches);

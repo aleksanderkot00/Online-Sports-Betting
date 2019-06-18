@@ -1,11 +1,10 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.UserDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ValueDto;
-import com.github.aleksanderkot00.onlinesportsbetting.mapper.UserMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,21 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class BalanceController {
 
     private final BalanceService balanceService;
-    private final UserMapper userMapper;
 
     @Autowired
-    public BalanceController(BalanceService balanceService, UserMapper userMapper) {
+    public BalanceController(BalanceService balanceService) {
         this.balanceService = balanceService;
-        this.userMapper = userMapper;
     }
 
     @GetMapping("/{userId}/balance")
-    public BalanceDto getBalance(@PathVariable long userId){
-        return balanceService.getUserBalance(userId);
+    public ResponseEntity getGetBalance(@PathVariable long userId){
+        return ResponseEntity.ok(balanceService.getUserBalance(userId));
     }
 
     @PatchMapping("/{userId}/payment")
-    public UserDto getBalance(@PathVariable long userId, @RequestBody ValueDto value){
-        return userMapper.mapToUserDto(balanceService.payment(userId, value.getValue()));
+    public ResponseEntity makePayment(@PathVariable long userId, @RequestBody ValueDto value){
+        balanceService.payment(userId, value.getValue());
+        return ResponseEntity.noContent().build();
     }
 }

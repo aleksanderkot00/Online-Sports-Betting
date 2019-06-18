@@ -1,11 +1,12 @@
 package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Builder
 public class EventDto {

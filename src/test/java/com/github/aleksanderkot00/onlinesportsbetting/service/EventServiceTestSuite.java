@@ -47,6 +47,7 @@ public class EventServiceTestSuite {
         event2.setTeamOneName("Manchester City");
         event2.setTeamTwoName("Liverpool");
         event2.setDateTime(LocalDateTime.of(2019,5,22,17,45,0));
+
         Category category1 = new Category();
         category1.setName("Test cat 1");
         category1.getEvents().add(event1);
