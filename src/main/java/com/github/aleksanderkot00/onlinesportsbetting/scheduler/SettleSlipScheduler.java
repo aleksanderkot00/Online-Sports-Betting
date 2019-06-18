@@ -16,7 +16,7 @@ public class SettleSlipScheduler {
         this.slipService = slipService;
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 23 * * * *")
     public void settleSlips() {
         slipService.getSlipsByState(SlipState.ORDERED).forEach(slipService::settleSlip);
     }

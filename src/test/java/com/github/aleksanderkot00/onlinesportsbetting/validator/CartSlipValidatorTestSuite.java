@@ -24,7 +24,6 @@ public class CartSlipValidatorTestSuite {
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
-        slip.setUser(user);
 
         //When&Then
         try {
@@ -63,7 +62,6 @@ public class CartSlipValidatorTestSuite {
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
-        slip.setUser(user);
 
         //When&Then
         try {
@@ -109,7 +107,6 @@ public class CartSlipValidatorTestSuite {
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
-        slip.setUser(user);
 
         //When&Then
         try {
@@ -147,7 +144,6 @@ public class CartSlipValidatorTestSuite {
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
-        slip.setUser(user);
 
         //When&Then
         try {
@@ -185,7 +181,6 @@ public class CartSlipValidatorTestSuite {
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
-        slip.setUser(user);
 
         //When&Then
         try {

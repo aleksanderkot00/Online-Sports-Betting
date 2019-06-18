@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,6 +18,7 @@ public class EventMapper {
         event.setTeamTwoName(eventDto.getTeamTwoName());
         event.setTeamOneScore(eventDto.getTeamOneScore());
         event.setTeamTwoScore(eventDto.getTeamTwoScore());
+        event.setFinished(Optional.of(eventDto.isFinished()).orElse(false));
 
         return event;
     }
@@ -34,6 +36,7 @@ public class EventMapper {
                 .teamTwoName(event.getTeamTwoName())
                 .teamOneScore(event.getTeamOneScore())
                 .teamTwoScore(event.getTeamTwoScore())
+                .finished(event.isFinished())
                 .build();
     }
 

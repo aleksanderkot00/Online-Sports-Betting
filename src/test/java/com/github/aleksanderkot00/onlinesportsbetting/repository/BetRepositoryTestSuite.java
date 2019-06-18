@@ -1,4 +1,4 @@
-package com.github.aleksanderkot00.onlinesportsbetting.reposiotory;
+package com.github.aleksanderkot00.onlinesportsbetting.repository;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Bet;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.BetType;

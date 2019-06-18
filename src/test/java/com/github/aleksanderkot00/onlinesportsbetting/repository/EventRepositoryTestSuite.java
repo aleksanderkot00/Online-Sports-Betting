@@ -1,4 +1,4 @@
-package com.github.aleksanderkot00.onlinesportsbetting.reposiotory;
+package com.github.aleksanderkot00.onlinesportsbetting.repository;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Event;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.EventNotFoundException;
@@ -52,6 +52,7 @@ public class EventRepositoryTestSuite {
         assertTrue(events.contains(event1));
         assertTrue(events.contains(event2));
     }
+
 
     @Test
     @Transactional(rollbackOn = {Exception.class})

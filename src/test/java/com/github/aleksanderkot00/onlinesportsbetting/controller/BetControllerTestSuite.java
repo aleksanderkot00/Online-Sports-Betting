@@ -62,12 +62,12 @@ public class BetControllerTestSuite {
         bets.add(betTwo);
 
         BetDto betOneDto = BetDto.builder()
-                .isActive(betOne.isActive())
+                .active(betOne.isActive())
                 .odds(betOne.getOdds())
                 .type(betOne.getType())
                 .build();
         BetDto betTwoDto = BetDto.builder()
-                .isActive(betTwo.isActive())
+                .active(betTwo.isActive())
                 .odds(betTwo.getOdds())
                 .type(betTwo.getType())
                 .build();
@@ -100,7 +100,7 @@ public class BetControllerTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
 
         BetDto betOneDto = BetDto.builder()
-                .isActive(betOne.isActive())
+                .active(betOne.isActive())
                 .odds(betOne.getOdds())
                 .type(betOne.getType())
                 .build();
@@ -126,7 +126,7 @@ public class BetControllerTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
 
         BetDto betOneDto = BetDto.builder()
-                .isActive(betOne.isActive())
+                .active(betOne.isActive())
                 .odds(betOne.getOdds())
                 .type(betOne.getType())
                 .build();
@@ -157,7 +157,7 @@ public class BetControllerTestSuite {
         betOne.setOdds(new BigDecimal("1.91"));
 
         BetDto betOneDto = BetDto.builder()
-                .isActive(betOne.isActive())
+                .active(betOne.isActive())
                 .odds(betOne.getOdds())
                 .type(betOne.getType())
                 .build();

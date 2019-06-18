@@ -2,12 +2,12 @@ package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.SlipDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ValueDto;
 import com.github.aleksanderkot00.onlinesportsbetting.facade.OrderSlipFacade;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.SlipMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.SlipService;
 import com.github.aleksanderkot00.onlinesportsbetting.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -30,11 +30,16 @@ public class SlipController {
     }
 
     @GetMapping("/{userId}/slips")
-    public Set<SlipDto> getSlip(@PathVariable long userId) {
+    public Set<SlipDto> getSlips(@PathVariable long userId) {
         return slipMapper.mapToSlipDtoSet(userService.getUser(userId).getSlips());
     }
 
-    @DeleteMapping("/{userId}/cart")
+    @GetMapping("/{userId}/cart")
+    public SlipDto getCartSlip(@PathVariable long userId) {
+        return slipMapper.mapToSlipDto(userService.getUser(userId).getCartSlip());
+    }
+
+    @PutMapping("/{userId}/cart/empty")
     public SlipDto emptySlip(@PathVariable long userId) {
         return slipMapper.mapToSlipDto(slipService.emptyCartSlip(userService.getUser(userId).getCartSlip().getSlipId()));
     }
@@ -50,8 +55,13 @@ public class SlipController {
     }
 
     @PutMapping("/{userId}/cart")
-    public ResponseEntity orderCartSlip(@PathVariable long userId) {
+    public SlipDto orderCartSlip(@PathVariable long userId) {
             Slip cartSlip = orderSlipFacade.orderSlip(userId);
-            return ResponseEntity.accepted().body(slipMapper.mapToSlipDto(cartSlip));
+            return slipMapper.mapToSlipDto(cartSlip);
+    }
+
+    @PatchMapping("/{userId}/cart/stake")
+    public SlipDto changeStake(@PathVariable long userId, @RequestBody ValueDto value) {
+        return slipMapper.mapToSlipDto(slipService.setStake(userId, value.getValue()));
     }
 }

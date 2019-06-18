@@ -17,5 +17,5 @@ public class BetDto {
     private long eventId;
     private BetType type;
     private BigDecimal odds;
-    private boolean isActive;
+    private boolean active;
 }

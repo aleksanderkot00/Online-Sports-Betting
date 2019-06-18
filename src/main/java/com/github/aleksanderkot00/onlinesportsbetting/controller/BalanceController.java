@@ -1,6 +1,5 @@
 package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.BalanceDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ValueDto;
 import com.github.aleksanderkot00.onlinesportsbetting.service.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -51,7 +51,6 @@ public class UserService implements UserDetailsService {
         user.setEmail(userRegistrationDto.getEmail());
         user.setEncryptedPassword(encoder.encode(userRegistrationDto.getPassword()));
         user.getRoles().add(roleRepository.findByRole("USER").orElse(new Role()));
-        user.getCartSlip().setUser(user);
 
         return userRepository.save(user);
     }

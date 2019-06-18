@@ -6,6 +6,7 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.EventDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,9 +27,9 @@ public class CategoryMapper {
         return new CategoryDto(category.getCategoryId(), category.getName(), events);
     }
 
-    public Set<CategoryDto> mapToCategoryDtoSet(Set<Category> categories) {
+    public List<CategoryDto> mapToCategoryDtoSet(List<Category> categories) {
         return categories.stream()
                 .map(this::mapToCategoryDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

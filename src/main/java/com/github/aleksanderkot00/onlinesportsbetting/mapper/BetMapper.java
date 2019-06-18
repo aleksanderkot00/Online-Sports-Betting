@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +28,7 @@ public class BetMapper {
         bet.setEvent(event);
         bet.setType(betDto.getType());
         bet.setOdds(betDto.getOdds());
-        bet.setActive(betDto.isActive());
+        bet.setActive(Optional.of(betDto.isActive()).orElse(true));
 
         return bet;
     }
@@ -36,7 +37,7 @@ public class BetMapper {
         return BetDto.builder()
                 .betId(bet.getBetId())
                 .eventId(bet.getEvent().getEventId())
-                .isActive(bet.isActive())
+                .active(bet.isActive())
                 .odds(bet.getOdds())
                 .type(bet.getType())
                 .build();

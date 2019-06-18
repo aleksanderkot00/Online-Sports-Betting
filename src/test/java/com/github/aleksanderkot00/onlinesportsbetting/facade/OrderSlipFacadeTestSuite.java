@@ -64,7 +64,6 @@ public class OrderSlipFacadeTestSuite {
         Slip slip = new Slip();
         slip.getBets().add(betZero);
         slip.getBets().add(betTwo);
-        slip.setUser(user);
         user.setCartSlip(slip);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));

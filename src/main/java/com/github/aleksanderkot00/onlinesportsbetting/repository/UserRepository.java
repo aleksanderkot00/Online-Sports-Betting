@@ -1,5 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.repository;
 
+import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
@@ -17,4 +18,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findById(Long id);
 
     Optional<User> findByEmail(String email);
+
+    Optional<User> findByCartSlip(Slip cartSlip);
+    Optional<User> findBySlipsContains(Slip slip);
 }

@@ -2,20 +2,16 @@ package com.github.aleksanderkot00.onlinesportsbetting.aop;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Slip;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.SlipState;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.details.CategoryWatchingDetails;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.details.LoginTryDateTime;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.details.SlipOrderDetails;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.details.SlipSettleDetails;
-import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.LoginTryDateTimeRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipOrderDetailsRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipSettleDetailsRepository;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.*;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -29,14 +25,18 @@ public class Watcher {
     private final SlipOrderDetailsRepository slipOrderDetailsRepository;
     private final SlipSettleDetailsRepository slipSettleDetailsRepository;
     private final SlipRepository slipRepository;
+    private final CategoryWatchingDetailsRepository categoryWatchingDetailsRepository;
 
-    @Autowired
-    public Watcher(LoginTryDateTimeRepository loginTryDateTimeRepository, SlipOrderDetailsRepository slipOrderDetailsRepository,
-                   SlipSettleDetailsRepository slipSettleDetailsRepository, SlipRepository slipRepository) {
+    public Watcher(LoginTryDateTimeRepository loginTryDateTimeRepository,
+                   SlipOrderDetailsRepository slipOrderDetailsRepository,
+                   SlipSettleDetailsRepository slipSettleDetailsRepository,
+                   SlipRepository slipRepository,
+                   CategoryWatchingDetailsRepository categoryWatchingDetailsRepository) {
         this.loginTryDateTimeRepository = loginTryDateTimeRepository;
         this.slipOrderDetailsRepository = slipOrderDetailsRepository;
         this.slipSettleDetailsRepository = slipSettleDetailsRepository;
         this.slipRepository = slipRepository;
+        this.categoryWatchingDetailsRepository = categoryWatchingDetailsRepository;
     }
 
     @Before("execution(* com.github.aleksanderkot00.onlinesportsbetting.controller.UserController.getUsersDetails(..))")
@@ -45,11 +45,18 @@ public class Watcher {
         loginTryDateTimeRepository.save(new LoginTryDateTime());
     }
 
+    @Before("execution(* com.github.aleksanderkot00.onlinesportsbetting.controller.CategoryController.getCategory(..))"+
+            "&& args(categoryId)")
+    public void saveCategory(long categoryId) {
+        LOGGER.info("Some is watching category" + categoryId);
+        categoryWatchingDetailsRepository.save(new CategoryWatchingDetails(categoryId));
+    }
+
     @AfterReturning(pointcut = "execution(* com.github.aleksanderkot00.onlinesportsbetting.facade.OrderSlipFacade.orderSlip(..))",
             returning = "retVal")
     public void saveSlipOrderDetails(Object retVal) {
         Slip cartSlip = (Slip) retVal;
-        LOGGER.info(cartSlip.getUser().getEmail() + " has ordered a slip.");
+        LOGGER.info(cartSlip.getSlipId() + " has been ordered.");
         slipOrderDetailsRepository.save(
                 SlipOrderDetails.builder()
                         .odds(cartSlip.getTotalOdds())
@@ -61,10 +68,9 @@ public class Watcher {
     }
 
     @AfterReturning("execution(* com.github.aleksanderkot00.onlinesportsbetting.service.SlipService.settleSlip(..))" +
-            "&& args(slipId)")
-    public void saveSlipSettleDetails(Object slipId) {
-        long id = (long) slipId;
-        Slip slip = slipRepository.findById(id).orElseThrow(SlipNotFoundException::new);
+            "&& args(objectSlip)")
+    public void saveSlipSettleDetails(Object objectSlip) {
+        Slip slip = (Slip) objectSlip;
         if (slip.getState().equals(SlipState.LOST)) {
             slipSettleDetailsRepository.save(
                     SlipSettleDetails.builder()

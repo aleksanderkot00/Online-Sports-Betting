@@ -2,15 +2,16 @@ package com.github.aleksanderkot00.onlinesportsbetting.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.Category;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.CategoryDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.NameDto;
 import com.github.aleksanderkot00.onlinesportsbetting.mapper.CategoryMapper;
 import com.github.aleksanderkot00.onlinesportsbetting.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
-@RequestMapping("/caterogies")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -23,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public Set<CategoryDto> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categoryMapper.mapToCategoryDtoSet(categoryService.getCategories());
     }
 
@@ -33,15 +34,15 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryDto addCategory(@RequestBody String name) {
+    public CategoryDto addCategory(@RequestBody NameDto name) {
         Category category = new Category();
-        category.setName(name);
+        category.setName(name.getName());
         return categoryMapper.mapToCategoryDto(categoryService.addCategory(category));
     }
 
-    @PutMapping("/{categoryId}")
-    public CategoryDto editCategory(@PathVariable long categoryId, @RequestBody String name) {
-        return categoryMapper.mapToCategoryDto(categoryService.changeName(categoryId, name));
+    @PatchMapping("/{categoryId}")
+    public CategoryDto editCategory(@PathVariable long categoryId, @RequestBody NameDto name) {
+        return categoryMapper.mapToCategoryDto(categoryService.changeName(categoryId, name.getName()));
     }
 
     @DeleteMapping("/{categoryId}")

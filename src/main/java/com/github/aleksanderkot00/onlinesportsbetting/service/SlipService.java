@@ -1,15 +1,19 @@
 package com.github.aleksanderkot00.onlinesportsbetting.service;
 
 import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ValueDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.BetNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipIsOrderedException;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
+import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
+import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Transactional
@@ -18,11 +22,13 @@ public class SlipService {
 
     private final SlipRepository slipRepository;
     private final BetRepository betRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public SlipService(SlipRepository slipRepository, BetRepository betRepository) {
+    public SlipService(SlipRepository slipRepository, BetRepository betRepository, UserRepository userRepository) {
         this.slipRepository = slipRepository;
         this.betRepository = betRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Slip> getSlipsByState(SlipState state) {
@@ -72,10 +78,16 @@ public class SlipService {
             slip.setState(SlipState.LOST);
 
         } else if (notFinishedBetsNumber == 0) {
-            User user = slip.getUser();
+            User user = userRepository.findBySlipsContains(slip).orElseThrow(UserNotFoundException::new);
             user.addToBalance(slip.getStake().multiply(slip.getTotalOdds()));
             slip.setState(SlipState.WINNING);
         }
+        return slipRepository.save(slip);
+    }
+
+    public Slip setStake(long userId, BigDecimal stake) {
+        Slip slip = userRepository.findById(userId).orElseThrow(UserNotFoundException::new).getCartSlip();
+        slip.setStake(stake);
         return slipRepository.save(slip);
     }
 }

@@ -17,4 +17,5 @@ public class EventDto {
     private String teamTwoName;
     private BigDecimal teamOneScore;
     private BigDecimal teamTwoScore;
+    private boolean finished;
 }

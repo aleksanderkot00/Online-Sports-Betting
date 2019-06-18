@@ -33,7 +33,6 @@ public class OrderSlipFacade {
         cartSlip.setState(SlipState.ORDERED);
         user.getSlips().add(cartSlip);
         user.setCartSlip(new Slip());
-        user.getCartSlip().setUser(user);
         userRepository.save(user);
 
         return cartSlip;

@@ -42,15 +42,12 @@ public class User {
     private String encryptedPassword;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="CART_SLIP_ID")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="CARTSLIP_ID")
     private Slip cartSlip = new Slip();
 
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
     private Set<Slip> slips = new HashSet<>();
 
     @NotNull

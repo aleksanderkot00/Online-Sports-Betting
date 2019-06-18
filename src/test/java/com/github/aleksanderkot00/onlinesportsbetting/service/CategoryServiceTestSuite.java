@@ -13,9 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -51,13 +49,15 @@ public class CategoryServiceTestSuite {
         event2.setTeamOneName("Manchester City");
         event2.setTeamTwoName("Liverpool");
         event2.setDateTime(LocalDateTime.of(2019,5,22,17,45,0));
+
         Category category1 = new Category();
         category1.setName("Test cat 1");
         category1.getEvents().add(event1);
+
         Category category2 = new Category();
         category2.setName("Test  cat 1");
         category2.getEvents().add(event2);
-        Set<Category> categories = new HashSet<>();
+        List<Category> categories = new ArrayList<>();
         categories.add(category1);
         categories.add(category2);
         when(categoryRepository.findAll()).thenReturn(categories);
@@ -67,7 +67,7 @@ public class CategoryServiceTestSuite {
     @Test
     public void testGetCategories() {
         //When
-        Set<Category> categories = categoryService.getCategories();
+        List<Category> categories = categoryService.getCategories();
 
         //Then
         assertEquals(2, categories.size());
