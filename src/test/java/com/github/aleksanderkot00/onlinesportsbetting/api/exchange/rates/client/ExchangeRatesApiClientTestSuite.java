@@ -1,8 +1,8 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.client;
 
 import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.config.ExchangeRatesApiConfig;
-import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto.ExchangeRatesDto;
-import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto.RatesDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ExchangeRatesDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.RatesDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

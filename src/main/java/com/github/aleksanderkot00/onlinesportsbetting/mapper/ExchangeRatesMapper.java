@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.mapper;
 
-import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto.ExchangeRatesDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ExchangeRatesDto;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.ExchangeRates;
 import org.springframework.stereotype.Component;
 

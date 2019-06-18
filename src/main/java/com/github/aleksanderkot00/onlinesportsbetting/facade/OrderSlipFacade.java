@@ -7,13 +7,11 @@ import com.github.aleksanderkot00.onlinesportsbetting.exception.UserNotFoundExce
 import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.validator.CartSlipValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Transactional
-@EnableAspectJAutoProxy
 @Service
 public class OrderSlipFacade {
 

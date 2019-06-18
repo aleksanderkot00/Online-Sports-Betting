@@ -1,7 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.client;
 
 import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.config.ExchangeRatesApiConfig;
-import com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto.ExchangeRatesDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.ExchangeRatesDto;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.ExchangeRatesNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

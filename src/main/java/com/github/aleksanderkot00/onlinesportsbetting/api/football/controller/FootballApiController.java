@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.controller;
 
-import com.github.aleksanderkot00.onlinesportsbetting.api.football.dto.FootballMatchDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.FootballMatchDto;
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.client.FootballApiClient;
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.FootballApiConfig;
 import org.springframework.beans.factory.annotation.Autowired;

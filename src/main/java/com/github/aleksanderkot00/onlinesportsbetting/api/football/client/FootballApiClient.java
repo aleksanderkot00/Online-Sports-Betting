@@ -1,6 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.client;
 
-import com.github.aleksanderkot00.onlinesportsbetting.api.football.dto.FootballMatchDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.FootballMatchDto;
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.FootballApiConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.client;
 
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.FootballApiConfig;
-import com.github.aleksanderkot00.onlinesportsbetting.api.football.dto.FootballMatchDto;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.FootballMatchDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,12 +41,14 @@ public class FootballApiClientTestSuite {
         URI url = new URI("http://test.com?action=get_events&APIkey=mytestkey&league_id=14&from="
                 + LocalDate.now().minusDays(7) + "&to=" + LocalDate.now());
 
-        FootballMatchDto matchDto = new FootballMatchDto();
-        matchDto.setCountry("Test country");
-        matchDto.setTeamOneScore("13");
-        matchDto.setDate(LocalDate.of(2001, 12, 1));
-        FootballMatchDto matchDto2 = new FootballMatchDto();
-        matchDto2.setLeague("Test Liga");
+        FootballMatchDto matchDto = FootballMatchDto.builder()
+                .country("Test country")
+                .teamOneScore("13")
+                .date(LocalDate.of(2001, 12, 1))
+                .build();
+        FootballMatchDto matchDto2 = FootballMatchDto.builder()
+                .league("Test Liga")
+                .build();
         FootballMatchDto[] matches = {matchDto, matchDto2};
 
         when(restTemplate.getForObject(url, FootballMatchDto[].class)).thenReturn(matches);
@@ -57,6 +59,9 @@ public class FootballApiClientTestSuite {
         //Then
         assertEquals(2, retrievedMatches.size());
         assertEquals("Test country", retrievedMatches.get(0).getCountry());
+        assertEquals("13", retrievedMatches.get(0).getTeamOneScore());
+        assertEquals("Test Liga", retrievedMatches.get(1).getLeague());
+        assertEquals(LocalDate.of(2001, 12, 1), retrievedMatches.get(0).getDate());
     }
 
     @Test

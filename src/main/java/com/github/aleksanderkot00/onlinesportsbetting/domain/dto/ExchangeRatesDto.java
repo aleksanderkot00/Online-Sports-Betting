@@ -1,7 +1,8 @@
-package com.github.aleksanderkot00.onlinesportsbetting.api.exchange.rates.dto;
+package com.github.aleksanderkot00.onlinesportsbetting.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.RatesDto;
 import lombok.*;
 
 import java.time.LocalDate;
