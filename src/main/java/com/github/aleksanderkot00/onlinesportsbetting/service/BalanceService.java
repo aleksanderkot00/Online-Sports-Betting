@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class BalanceService {
@@ -31,11 +32,11 @@ public class BalanceService {
             return BalanceDto.builder()
                     .rateDate(rates.getDate())
                     .plnBalance(plnBalance)
-                    .eurBalance(plnBalance.divide(rates.getEuroRate()))
-                    .gbpBalance(plnBalance.divide(rates.getPoundRate()))
-                    .usdBalance(plnBalance.divide(rates.getDollarRate()))
+                    .eurBalance(plnBalance.divide(rates.getEuroRate(),3, RoundingMode.CEILING))
+                    .gbpBalance(plnBalance.divide(rates.getPoundRate(),3, RoundingMode.CEILING))
+                    .usdBalance(plnBalance.divide(rates.getDollarRate(),3, RoundingMode.CEILING))
                     .build();
-        } catch (ExchangeRatesNotAvailableException e) {
+        } catch (Exception e) {
             return BalanceDto.builder()
                     .plnBalance(plnBalance)
                     .build();
