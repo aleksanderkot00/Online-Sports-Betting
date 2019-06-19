@@ -1,7 +1,6 @@
 package com.github.aleksanderkot00.onlinesportsbetting.api.football.controller;
 
 import com.github.aleksanderkot00.onlinesportsbetting.api.football.client.FootballApiClient;
-import com.github.aleksanderkot00.onlinesportsbetting.api.football.config.FootballApiConfig;
 import com.github.aleksanderkot00.onlinesportsbetting.domain.dto.FootballMatchDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +32,6 @@ public class FootballApiControllerTestSuite {
     @MockBean
     private FootballApiClient footballApiClient;
 
-    @MockBean
-    private FootballApiConfig footballApiConfig;
-
     @Test
     public void testGetMatches() throws Exception {
         //Given
@@ -61,11 +57,10 @@ public class FootballApiControllerTestSuite {
         matches.add(footballMatchDto1);
         matches.add(footballMatchDto2);
 
-        when(footballApiConfig.getPremierLeagueId()).thenReturn(13);
         when(footballApiClient.getLastMatches(13,30)).thenReturn(matches);
 
         //When&Then
-        mockMvc.perform(get("/matches").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/matches/league/13/days/30").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].country_name", is("England")))

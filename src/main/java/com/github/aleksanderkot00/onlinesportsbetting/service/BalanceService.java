@@ -31,9 +31,9 @@ public class BalanceService {
             return BalanceDto.builder()
                     .rateDate(rates.getDate())
                     .plnBalance(plnBalance)
-                    .eurBalance(plnBalance.multiply(rates.getEuroRate()))
-                    .gbpBalance(plnBalance.multiply(rates.getPoundRate()))
-                    .usdBalance(plnBalance.multiply(rates.getDollarRate()))
+                    .eurBalance(plnBalance.divide(rates.getEuroRate()))
+                    .gbpBalance(plnBalance.divide(rates.getPoundRate()))
+                    .usdBalance(plnBalance.divide(rates.getDollarRate()))
                     .build();
         } catch (ExchangeRatesNotAvailableException e) {
             return BalanceDto.builder()

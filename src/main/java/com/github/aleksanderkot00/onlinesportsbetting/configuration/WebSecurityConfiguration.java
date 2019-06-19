@@ -28,6 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
+                .anyRequest().hasIpAddress("") /*Frontend IP*/
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable();

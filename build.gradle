@@ -19,6 +19,8 @@ dependencies {
 	compile('mysql:mysql-connector-java')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.projectlombok:lombok:1.18.8')
+	compile('io.springfox:springfox-swagger2:2.7.0')
+	compile('io.springfox:springfox-swagger-ui:2.7.0')
 	compile('com.google.code.gson:gson')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

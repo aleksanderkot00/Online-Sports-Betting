@@ -4,7 +4,6 @@ import com.github.aleksanderkot00.onlinesportsbetting.domain.*;
 import com.github.aleksanderkot00.onlinesportsbetting.exception.SlipNotFoundException;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.BetRepository;
 import com.github.aleksanderkot00.onlinesportsbetting.repository.SlipRepository;
-import com.github.aleksanderkot00.onlinesportsbetting.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +33,6 @@ public class SlipServiceTestSuite {
 
     @Mock
     private BetRepository betRepository;
-
-    @Mock
-    private UserRepository userRepository;
 
     @Before
     public void init() {

@@ -208,7 +208,7 @@ public class EventControllerTestSuite {
     }
 
     @Test
-    public void testDeleteUser() throws Exception {
+    public void testDeleteEvent() throws Exception {
         //When&Then
         mockMvc.perform(delete("/events/13")
                 .contentType(MediaType.APPLICATION_JSON))

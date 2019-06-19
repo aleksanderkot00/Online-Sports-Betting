@@ -36,7 +36,7 @@ public class BalanceServiceTestSuite {
     @Before
     public void init() {
         User user = new  User();
-        user.setBalance(new BigDecimal("2000"));
+        user.setBalance(new BigDecimal("6000"));
         user.setEmail("mail@gmail.com");
         user.setName("test name");
         user.setLastName("testLastName");
@@ -58,10 +58,10 @@ public class BalanceServiceTestSuite {
         BalanceDto balanceDto = balanceService.getUserBalance(12l);
 
         //Then
-        assertTrue(balanceDto.getPlnBalance().compareTo(new BigDecimal("2000")) == 0);
-        assertTrue(balanceDto.getEurBalance().compareTo(new BigDecimal("4000")) == 0);
-        assertTrue(balanceDto.getGbpBalance().compareTo(new BigDecimal("6000")) == 0);
-        assertTrue(balanceDto.getUsdBalance().compareTo(new BigDecimal("3000")) == 0);
+        assertTrue(balanceDto.getPlnBalance().compareTo(new BigDecimal("6000")) == 0);
+        assertTrue(balanceDto.getEurBalance().compareTo(new BigDecimal("3000")) == 0);
+        assertTrue(balanceDto.getGbpBalance().compareTo(new BigDecimal("2000")) == 0);
+        assertTrue(balanceDto.getUsdBalance().compareTo(new BigDecimal("4000")) == 0);
         assertTrue(balanceDto.getRateDate().equals(LocalDate.now()));
     }
 
@@ -79,7 +79,7 @@ public class BalanceServiceTestSuite {
         BalanceDto balanceDto = balanceService.getUserBalance(123);
 
         //Then
-        assertTrue(balanceDto.getPlnBalance().compareTo(new BigDecimal("2000")) == 0);
+        assertTrue(balanceDto.getPlnBalance().compareTo(new BigDecimal("6000")) == 0);
         assertNull(balanceDto.getEurBalance());
         assertNull(balanceDto.getGbpBalance());
         assertNull(balanceDto.getRateDate());
@@ -95,6 +95,6 @@ public class BalanceServiceTestSuite {
         balanceService.payment(13l, new BigDecimal("1351"));
 
         //Then
-        assertTrue(user.getBalance().compareTo(new BigDecimal("3351")) == 0);
+        assertTrue(user.getBalance().compareTo(new BigDecimal("7351")) == 0);
     }
 }

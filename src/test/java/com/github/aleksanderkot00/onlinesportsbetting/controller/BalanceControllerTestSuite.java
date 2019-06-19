@@ -41,7 +41,7 @@ public class BalanceControllerTestSuite {
         BalanceDto balanceDto = BalanceDto.builder()
                 .rateDate(LocalDate.of(2019,6,11))
                 .eurBalance(new BigDecimal("1009.34"))
-                .plnBalance(new BigDecimal("282.33"))
+                .plnBalance(new BigDecimal("4050.33"))
                 .usdBalance(new BigDecimal("900.51"))
                 .gbpBalance(new BigDecimal("1231.22"))
                 .build();
@@ -51,7 +51,7 @@ public class BalanceControllerTestSuite {
         mockMvc.perform(get("/users/23/balance")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.plnBalance", is(282.33)))
+                .andExpect(jsonPath("$.plnBalance", is(4050.33)))
                 .andExpect(jsonPath("$.eurBalance", is(1009.34)))
                 .andExpect(jsonPath("$.usdBalance", is(900.51)))
                 .andExpect(jsonPath("$.gbpBalance", is(1231.22)))
