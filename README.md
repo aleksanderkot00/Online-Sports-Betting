@@ -1,8 +1,8 @@
-# ONLINE SPORTS BETTIN API
+# ONLINE SPORTS BETTING API
 
 ## 1. DESCRIPTION
 
-Rest Api that allows to carry out sports betting and then execute them after introduction of event result.
+Rest Api that allows to carry out sports betting and then execute them after introduction of event results.
 
 ## 2. TECHNOLOGIES
 - Spring Boot
@@ -26,7 +26,7 @@ to
 ```
 compile('org.projectlombok:lombok')
 ```
-in build.gradle. Project is cotencted to online database then you need Internet connection.
+in build.gradle. Project is connected to online database then you need Internet connection.
 
 ## 5. FRONT-END
 
@@ -35,4 +35,4 @@ Simple front-end to this application - https://github.com/aleksanderkot00/Online
 ## 6. FUTURE PLANS
 
 - Improvement security by JWT token
-- Improvenet of front-end
+- Improvement of front-end

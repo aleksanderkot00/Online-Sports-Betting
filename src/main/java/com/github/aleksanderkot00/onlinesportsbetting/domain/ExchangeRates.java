@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @NamedNativeQuery(
         name = "ExchangeRates.getLastRates",
-        query = "SELECT * FROM osb_crud.exchange_rates ORDER BY date DESC LIMIT 1",
+        query = "SELECT * FROM exchange_rates ORDER BY date DESC LIMIT 1",
         resultClass = ExchangeRates.class
 )
 @Data
