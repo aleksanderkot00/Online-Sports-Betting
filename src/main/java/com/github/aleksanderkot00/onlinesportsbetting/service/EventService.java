@@ -44,7 +44,7 @@ public class EventService {
         if (eventDto.getTeamTwoName() != null && !eventDto.getTeamTwoName().equals("")) {
             event.setTeamTwoName(eventDto.getTeamTwoName());
         }
-        if (eventDto.getTeamOneScore() != null){
+        if (eventDto.getTeamOneScore() != null) {
             event.setTeamOneScore(eventDto.getTeamOneScore());
         }
         if (eventDto.getTeamTwoScore() != null) {

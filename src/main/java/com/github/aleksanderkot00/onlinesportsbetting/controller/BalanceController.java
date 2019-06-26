@@ -18,12 +18,12 @@ public class BalanceController {
     }
 
     @GetMapping("/{userId}/balance")
-    public ResponseEntity getGetBalance(@PathVariable long userId){
+    public ResponseEntity getGetBalance(@PathVariable long userId) {
         return ResponseEntity.ok(balanceService.getUserBalance(userId));
     }
 
     @PatchMapping("/{userId}/payment")
-    public ResponseEntity makePayment(@PathVariable long userId, @RequestBody ValueDto value){
+    public ResponseEntity makePayment(@PathVariable long userId, @RequestBody ValueDto value) {
         balanceService.payment(userId, value.getValue());
         return ResponseEntity.noContent().build();
     }

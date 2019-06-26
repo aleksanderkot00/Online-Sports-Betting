@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDto> getUsers(){
+    public List<UserDto> getUsers() {
         return userMapper.mapToUserDtoList(userService.getUsers());
     }
 
     @GetMapping("/{userId}")
-    public UserDto getUser(@PathVariable long userId){
+    public UserDto getUser(@PathVariable long userId) {
         return userMapper.mapToUserDto(userService.getUser(userId));
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/details")
-    public List<UserDetailsDto> getUsersDetails(){
+    public List<UserDetailsDto> getUsersDetails() {
         return userService.getUsers().stream()
                 .map(UserDetailsDto::new)
                 .collect(Collectors.toList());
