@@ -269,7 +269,7 @@
 //
 //        Event premierLeague1 = new Event();
 //        premierLeague1.setFinished(true);
-//        premierLeague1.setCategory(laLiga);
+//        premierLeague1.setCategory(premierLeague);
 //        premierLeague1.setTeamOneScore(BigDecimal.valueOf(6));
 //        premierLeague1.setTeamTwoScore(BigDecimal.valueOf(0));
 //        premierLeague1.setTeamOneName("Manchester City");
@@ -278,7 +278,7 @@
 //
 //        Event premierLeague2 = new Event();
 //        premierLeague2.setFinished(true);
-//        premierLeague2.setCategory(laLiga);
+//        premierLeague2.setCategory(premierLeague);
 //        premierLeague2.setTeamOneScore(BigDecimal.valueOf(4));
 //        premierLeague2.setTeamTwoScore(BigDecimal.valueOf(2));
 //        premierLeague2.setTeamOneName("Arsenal");
@@ -287,7 +287,7 @@
 //
 //        Event premierLeague3 = new Event();
 //        premierLeague3.setFinished(true);
-//        premierLeague3.setCategory(laLiga);
+//        premierLeague3.setCategory(premierLeague);
 //        premierLeague3.setTeamOneScore(BigDecimal.valueOf(2));
 //        premierLeague3.setTeamTwoScore(BigDecimal.valueOf(1));
 //        premierLeague3.setTeamOneName("Manchester city");
